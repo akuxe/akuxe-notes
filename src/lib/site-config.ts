@@ -1,7 +1,7 @@
 export const BASE_URL = getBaseUrl();
 
 export const siteConfig = {
-  name: 'Akuxe',
+  name: 'Akuxe Notes',
   description:
     'Personal notes and lessons on UI/UX design and web development.',
   creator: 'Arun',
