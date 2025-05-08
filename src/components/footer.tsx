@@ -1,3 +1,4 @@
+import { siteConfig } from '@/lib/site-config';
 import { ArrowUpRightIcon } from '@heroicons/react/16/solid';
 
 export default function Footer() {
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className='mx-auto max-w-360 px-6 py-4 text-sm/6 text-balance text-zinc-600 max-md:text-center dark:text-zinc-400'>
         Built by{' '}
         <a
-          href='#'
+          href={siteConfig.links.twitter}
           target='_blank'
           rel='noopener noreferrer'
           className='transition-colors hover:text-zinc-950 dark:hover:text-zinc-50'
