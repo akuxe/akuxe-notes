@@ -3,12 +3,7 @@ import { ImageResponse } from 'next/og';
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-
-    const getValid = (val: string | null) =>
-      val && val !== 'undefined' && val !== 'null' ? val : undefined;
-
-    const title = getValid(searchParams.get('title')) ?? 'Akuxe Notes';
-    const section = getValid(searchParams.get('section')) ?? 'Akuxe Notes';
+    const title = searchParams.get('title') || 'Akuxe Notes';
 
     return new ImageResponse(
       (
@@ -57,15 +52,15 @@ export async function GET(request: Request) {
             style={{
               display: 'flex',
               fontFamily: 'Inter',
-              fontSize: 56,
+              fontSize: 64,
               fontStyle: 'normal',
               color: 'white',
-              marginTop: 30,
-              lineHeight: 1.8,
+              marginTop: 40,
+              lineHeight: 1.4,
               whiteSpace: 'pre-wrap',
             }}
           >
-            {section} - {title}
+            {title}
           </div>
         </div>
       ),
@@ -75,7 +70,7 @@ export async function GET(request: Request) {
         fonts: [
           {
             name: 'Inter',
-            data: await loadGoogleFont('Inter', title + section! + '-'),
+            data: await loadGoogleFont('Inter', title),
             style: 'normal',
           },
         ],
