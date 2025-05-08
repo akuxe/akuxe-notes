@@ -1,0 +1,179 @@
+export const title = 'Classes';
+export const description =
+  'Classes formalize the common JavaScript pattern of simulating class-like inheritance hierarchies using functions and prototypes.';
+
+## Constructor Functions vs ES6 Classes
+
+ES6 introduced a cleaner syntax for creating objects and dealing with inheritance through classes. This replaces the need for verbose constructor functions.
+
+```js
+// Constructor Function
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.greet = function () {
+    console.log('Hello');
+  };
+}
+
+const john = new Person('John', 30);
+
+// ES6 Class Equivalent
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    console.log('Hello');
+  }
+}
+
+const john = new Person('John', 30);
+```
+
+- Methods inside a class (not in `constructor`) are placed on the prototype.
+- The `greet` method is defined outside the constructor, which ensures that the method is shared across all instances of `Person`. The method is not recreated for each new object, improving memory efficiency.
+- `typeof Circle` is still a function; classes are syntactic sugar over constructor functions.
+
+## Class Hoisting
+
+Classes are not hoisted, unlike functions. Trying to use a class before its declaration results in a `ReferenceError`.
+
+```js
+const circle = new Circle(); // ReferenceError
+class Circle {}
+```
+
+## Static Methods
+
+Static methods are defined using the `static` keyword and are not available on instances of the class. Instead, they are called on the class itself.
+
+```js
+class Car {
+  constructor(make, model) {
+    this.make = make;
+    this.model = model;
+  }
+
+  displayInfo() {
+    console.log(`${this.make} ${this.model}`);
+  }
+
+  static generalInfo() {
+    console.log('Cars help us travel.');
+  }
+}
+
+const myCar = new Car('Toyota', 'Corolla');
+
+myCar.displayInfo(); //  Toyota Corolla
+myCar.generalInfo(); // TypeError: myCar.generalInfo is not a function
+Car.generalInfo(); // Cars help us travel.
+```
+
+- Static methods are not accessible on instances.
+- Useful for validation or utility operations.
+
+## Private Members Using Symbols
+
+Using `Symbol` creates a unique, unguessable key for object properties, effectively making them private because they can't be accessed without the specific symbol.
+
+`console.log(Symbol() === Symbol()); // false`
+
+```js
+const privateName = Symbol('name');
+
+class Person {
+  constructor(name) {
+    this[privateName] = name;
+  }
+
+  getName() {
+    return this[privateName];
+  }
+}
+
+const john = new Person('John'); // { Symbol("name"): "John" }
+console.log(john.getName()); // Output: John
+```
+
+- Symbol properties cannot be accessed using dot notation.
+- Provides better encapsulation compared to naming conventions (e.g., `_name`).
+
+## Private Members Using WeakMaps
+
+`WeakMap` can store private data by associating an object with its private values. This ensures that the data is only accessible through the WeakMap, providing true encapsulation.
+
+WeakMaps offer another approach to private properties, where keys are objects and values can be anything `WeakMap<object, any>`.
+
+```js
+const privateData = new WeakMap();
+
+class Person {
+  constructor(name, age) {
+    privateData.set(this, { name, age });
+  }
+
+  getName() {
+    return privateData.get(this).name;
+  }
+}
+
+const john = new Person('John', 30);
+console.log(john.getName()); // Output: John
+```
+
+## Inheritance
+
+Inheritance allows a class (child) to inherit properties and methods from another class (parent). It enables code reuse and extends functionality without rewriting existing logic.
+
+Inheritance is achieved using the `extends` keyword. The `super()` function calls the parent class constructor.
+
+```js
+class Vehicle {
+  constructor(make, year) {
+    this.make = make;
+    this.year = year;
+  }
+
+  getDetails() {
+    return `${this.make} (${this.year})`;
+  }
+}
+
+class Car extends Vehicle {
+  constructor(make, year, model) {
+    super(make, year); // Reuse parent constructor
+    this.model = model;
+  }
+
+  getDetails() {
+    return `${super.getDetails()} - Model: ${this.model}`; // Reuse parent method
+  }
+}
+
+const myCar = new Car('Toyota', 2022, 'Corolla');
+console.log(myCar.getDetails()); // Output: "Toyota (2022) - Model: Corolla"
+```
+
+## Method Overriding
+
+Method overriding is when a subclass redefines a parent class method with its own implementation, replacing the parent method's behavior.
+
+```js
+class Animal {
+  speak() {
+    console.log('Animal speaks');
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log('Dog barks');
+  }
+}
+
+const dog = new Dog();
+dog.speak(); // Output: Dog barks (overrides Animal's speak method)
+```

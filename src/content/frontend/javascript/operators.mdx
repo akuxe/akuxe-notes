@@ -1,0 +1,181 @@
+export const title = 'Operators';
+export const description =
+  'Operators are essential building blocks in JavaScript, used to perform operations on values and variables.';
+
+## Arithmetic Operators
+
+Arithmetic operators perform arithmetic on numbers (literals or variables).
+
+- Addition (`+`)
+- Subtraction (`-`)
+- Multiplication (`*`)
+- Division (`/`)
+- Modulus (Remainder) (`%`)
+- Exponentiation (`**`)
+- Increment (`++`)
+- Decrement (`--`)
+
+```js
+let x = 10;
+let y = 3;
+
+console.log(x + y); // 13
+console.log(x - y); // 7
+console.log(x * y); // 30
+console.log(x / y); // 3.33
+console.log(x % y); // 1
+console.log(x ** y); // 1000 (10 to the power of 3)
+console.log(x++); // 11
+console.log(x--); // 9
+```
+
+## Assignment Operators
+
+Used to assign values to variables with shorthand operations.
+
+```js
+let x = 10;
+
+// Add and assign
+x += 5; // Equivalent to x = x + 5
+
+// Multiply and assign
+x *= 3; // Equivalent to x = x * 3
+```
+
+## Comparison Operators
+
+Comparison operators compare two values and return a `boolean` value.
+
+### Relational Operators
+
+```js
+let x = 1;
+
+console.log(x > 0); // true
+console.log(x >= 1); // true
+console.log(x < 1); // false
+console.log(x <= 1); // true
+```
+
+### Equality Operators
+
+- Strict Equality (checks type + value): `===`
+- Loose Equality (checks value only): `==`
+
+```js
+let x = 1;
+
+// Strict Equality (Type + Value)
+console.log(1 === 1); // true
+console.log('1' === 1); // false
+
+// Loose Equality (Value)
+console.log(1 == '1'); // true
+console.log(true == 1); // true
+```
+
+## Ternary Operators
+
+Ternary operators are also known as conditional operators. Basically, they put an if else statement onto one line.
+
+```js
+let age = 18;
+let voteable = age < 18 ? 'Too young' : 'Old enough';
+console.log(voteable); // Output: Old enough
+```
+
+## Logical Operators
+
+Logical operators evaluate logical expressions. There are four logical operators in JavaScript: `&&` (AND), `||` (OR), `!` (NOT), `??` (Nullish Coalescing).
+
+```js
+// AND (&&): Returns true if both operands are true
+const isLoggedIn = true;
+isLoggedIn && console.log('Welcome back!'); // Output: "Welcome back!"
+
+// OR (||): Returns true if one operand is true
+const user = '';
+console.log(user || 'Anonymous'); // Output: "Anonymous"
+
+// NOT (!): Inverts the boolean value
+let isDarkMode = false;
+isDarkMode = !isDarkMode;
+console.log(isDarkMode); // Output: true
+
+// Nullish Coalescing: Provides a fallback value for null or undefined
+function greet(name) {
+  console.log(`Hello, ${name ?? 'Guest'}!`);
+}
+greet(); // Output: "Hello, Guest!"
+greet('Alice'); // Output: "Hello, Alice!"
+```
+
+### Short Circuiting
+
+Short-circuit evaluation in JavaScript is a technique where logical operators `&&, ||, ??` stop evaluating as soon as the result is determined. This is because JavaScript doesn't need to evaluate the rest of the expression once it knows the outcome.
+
+**Logical AND (&&)**
+
+- Stops at the first `false` value because the entire expression will be `false`.
+- Returns the first falsy value it encounters or the last truthy value if none are falsy.
+
+```js
+const result = true && 'Hello' && 0 && 'World';
+console.log(result); // 0
+```
+
+**Logical OR (||)**
+
+- Stops at the first `true` value because the entire expression will be `true`.
+- Returns the first truthy value it encounters or the last falsy value if none are truthy.
+
+```js
+const result = false || '' || 'JavaScript' || 'World';
+console.log(result); // "JavaScript"
+```
+
+**Nullish Coalescing (??)**
+
+Returns the right-hand side if the left-hand side is `null` or `undefined`.
+
+```js
+const user = null;
+const result = user ?? 'Guest';
+console.log(result); // "Guest"
+```
+
+## Bitwise Operators
+
+Perform operations at the binary level.
+
+```js
+//  1 in binary (00000001)
+//  2 in binary (00000010)
+//  Compare each bit in vertical way.
+
+// Bitwise OR: Sets each bit to 1 if one of two bits is 1
+console.log(1 | 2); // 3 (00000011)
+
+// Bitwise AND: Sets each bit to 1 if both bits are 1
+console.log(1 & 2); // 0 (00000000)
+
+// Permission Example
+const readPermission = 4; // 00000100
+const writePermission = 2; // 00000010
+const executePermission = 1; // 00000001
+
+let myPermission = 0;
+myPermission = myPermission | readPermission;
+
+console.log(myPermission & readPermission ? 'yes' : 'no'); // Output: yes
+```
+
+## Operator Precedence
+
+Determines the order of operations in expressions.
+
+```js
+let x = 2 + 3 * 4; // Multiplication first, result: 14
+let y = (2 + 3) * 4; // Parentheses first, result: 20
+```

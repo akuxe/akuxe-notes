@@ -1,0 +1,112 @@
+export const title = 'Methods';
+export const description =
+  'JavaScript methods for strings, numbers, math operations, objects, and JSON handling, enabling data manipulation and transformation.';
+
+## String Methods
+
+Javascript strings are primitive and immutable: All string methods produce a new string without altering the original string.
+
+```js
+const str = 'Hello World!';
+const paddedStr = '  Hello World!  ';
+
+// Few Basic String Methods are:
+str.length; // 12 (returns the length of the string)
+str[0]; // "H" (accesses the character at index 0)
+str.charAt(4); // "o" (returns the character at a specified index)
+str.toLowerCase(); // "hello world!" (converts the string to lowercase)
+str.toUpperCase(); // "HELLO WORLD!" (converts the string to uppercase)
+str.concat(' How are you?'); // "Hello World! How are you?" (concatenates strings)
+str.replace('World', 'Universe'); // "Hello Universe!" (replaces the first occurrence of the substring)
+str.replaceAll('l', 'x'); // "Hexxo Worxd!" (replaces all occurrences of the substring)
+str.split(' '); // ["Hello", "World!"] (splits the string into an array of substrings)
+str.slice(6, 11); // "World" (extracts a portion of the string)
+str.substring(0, 5); // "Hello" (extracts a substring between two indices)
+str.trim(); // "Hello World!" (removes whitespace from both ends of the string)
+str.trimStart(); // "Hello World!  " (removes whitespace from the start of the string)
+str.trimEnd(); // "  Hello World!" (removes whitespace from the end of the string)
+str.repeat(2); // "Hello World!Hello World!" (repeats the string twice)
+str.charCodeAt(0); // 72 (returns the Unicode value of the character at index 0)
+paddedStr.trim(); // "Hello World!" (removes whitespace from both ends)
+```
+
+## String Search Methods
+
+```js
+const str = 'Hello World!';
+
+str.indexOf('o'); // 4 (returns the index of the first occurrence of the substring)
+str.lastIndexOf('o'); // 7 (returns the index of the last occurrence of the substring)
+str.includes('World'); // true (checks if the string contains a specified substring)
+str.startsWith('Hello'); // true (checks if the string starts with the specified substring)
+str.endsWith('!'); // true (checks if the string ends with the specified substring)
+str.search('d'); // 10 (searches for the position of the first match and returns its index)
+str.match('llo'); // ["llo"] (returns an array with the result of matching a string)
+```
+
+## Number Methods
+
+```js
+const num = 123.456;
+const largeNum = 987654321;
+
+// Few Basic Number Methods are:
+num.toFixed(2); // "123.46" (formats to 2 decimal places)
+num.toExponential(2); // "1.23e+2" (exponential notation with 2 decimals)
+num.toPrecision(4); // "123.5" (formats to 4 significant digits)
+num.toString(); // "123.456" (converts number to string)
+Number.isNaN(NaN); // true (checks if the value is NaN)
+Number.isFinite(num); // true (checks if the value is finite)
+Number.isInteger(num); // false (checks if the value is an integer)
+Number.parseInt('42px'); // 42 (parses integer from a string)
+Number.parseFloat('3.14pi'); // 3.14 (parses float from a string)
+Number.isSafeInteger(9007199254740991); // true (checks if value is a safe integer)
+largeNum.toLocaleString(); // "987,654,321" (formats number with commas for readability)
+```
+
+## Math Methods
+
+```js
+const value = -5.67;
+
+// Few Basic Math Methods are:
+Math.abs(value); // 5.67 (returns the absolute (positive) value)
+Math.round(value); // -6 (rounds to the nearest integer)
+Math.floor(value); // -6 (rounds down to the nearest integer)
+Math.ceil(value); // -5 (rounds up to the nearest integer)
+Math.max(1, 5, 10); // 10 (returns the largest value)
+Math.min(1, 5, 10); // 1 (returns the smallest value)
+Math.random(); // Random number between 0 and 1
+Math.sqrt(16); // 4 (returns the square root)
+Math.pow(2, 3); // 8 (raises 2 to the power of 3)
+Math.trunc(value); // -5 (removes fractional part, keeping only the integer part)
+Math.sign(value); // -1 (returns the sign of the number: 1, -1, or 0)
+```
+
+## Object Methods
+
+```js
+const obj = { a: 1, b: 2, c: 3 };
+
+// Few Basic Object Methods are:
+Object.keys(obj); // ["a", "b", "c"] (returns an array of the object's keys)
+Object.values(obj); // [1, 2, 3] (returns an array of the object's values)
+Object.entries(obj); // [["a", 1], ["b", 2], ["c", 3]] (returns an array of key-value pairs)
+Object.assign({}, obj, { d: 4 }); // { a: 1, b: 2, c: 3, d: 4 } (copies properties to a new object)
+Object.freeze(obj); // Freezes the object, making it immutable
+Object.is({ a: 1 }, { a: 1 }); // false (checks strict equality between objects)
+Object.hasOwn(obj, 'a'); // true (checks if the object has the specified key)
+```
+
+## JSON Methods
+
+```js
+const jsonData = '{"name": "Alice", "age": 30}';
+const obj = { name: 'Alice', age: 30 };
+
+// Few Basic JSON Methods are:
+JSON.parse(jsonData); // { name: "Alice", age: 30 } (parses JSON string to object)
+JSON.stringify(obj); // '{"name":"Alice","age":30}' (converts object to JSON string)
+```
+
+[Complete JavaScript and HTML DOM References](https://www.w3schools.com/jsref/default.asp)

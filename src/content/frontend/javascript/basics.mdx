@@ -1,0 +1,116 @@
+export const title = 'Basics';
+export const description =
+  'JavaScript uses variables to store data, which can be of various types including primitives and objects.';
+
+## Variables
+
+Variables store data that can be referenced and manipulated in a program. When naming variables, avoid reserved keywords like `if`, `const`, `false`, or `typeof`.
+
+```js
+let userName = 'John';
+console.log(userName); // Output: John
+
+const interestRate = 0.3;
+console.log(interestRate); // Output: 0.3
+```
+
+- Use `let` or `const` to declare variables.
+- `const` is used for values that shouldn't change.
+
+## Data Types
+
+JavaScript has 8 Datatypes. String, Number, Bigint, Boolean, Undefined, Null, Symbol, Object. The data types can be categorized into two types.
+
+## Primitives Types (Value Types)
+
+- String
+- Number
+- Bigint
+- Boolean
+- Undefined
+- Null
+- Symbol
+
+```js
+const firstName = 'John'; // String
+const year = 30; // Number
+const year = 30n; // Bigint
+const isApprover = false; // Boolean
+const lastName = undefined; // Undefined
+const selectedColor = null; // Object
+```
+
+## Reference Types
+
+- Object
+- Array
+- Function
+
+### Objects
+
+Objects group related data using key-value pairs. They are useful for representing entities with multiple properties.
+
+```js
+let person = {
+  name: 'John',
+  age: 30,
+};
+```
+
+### Accessing Object Properties
+
+```js
+// Dot Notation
+person.name = 'Chris';
+
+// Bracket Notation - Useful when the property name is dynamic
+let selection = 'name';
+person[selection] = 'Chris';
+```
+
+### Arrays
+
+- An array is a special variable, which can hold more than one value
+- Arrays store ordered collections of items and can hold mixed types.
+
+```js
+let colors = ['red', 'blue'];
+colors[2] = 1; // we can create an array, and then provide the elements
+console.log(colors); // Output: [ 'red', 'blue', 1 ]
+console.log(colors.length); // Output: 3
+```
+
+- Arrays are zero-indexed.
+- Use `.length` to get the size of an array.
+
+### Functions
+
+- Functions are reusable blocks of code that perform specific tasks or calculations.
+- **Parameters** are placeholders in the function definition.
+- **Arguments** are the actual values passed to the function.
+
+```js
+function greet(name, lastName) {
+  console.log('Hello ' + name + ' ' + lastName);
+}
+greet('John', 'Smith'); // Output: Hello John Smith
+
+function square(number) {
+  return number * number;
+}
+console.log(square(2)); // Output: 4
+```
+
+## Dynamic Typing
+
+- In static languages, the type of a variable cannot change.
+- In dynamic languages like JavaScript, the type of a variable can change.
+
+```js
+let age = 30;
+age = 'One';
+console.log(age); // Output: One
+```
+
+- Use `typeof` to check a variable's type.
+- Dynamic typing allows flexibility but can lead to errors if not managed carefully.

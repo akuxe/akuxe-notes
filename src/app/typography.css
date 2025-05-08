@@ -1,0 +1,232 @@
+.prose {
+  --prose-color: var(--color-zinc-700);
+  --prose-heading-color: var(--color-zinc-950);
+  --prose-strong-color: var(--color-zinc-950);
+
+  --prose-code-color: var(--color-zinc-950);
+  --prose-code-bg-color: var(--color-zinc-100);
+  --prose-code-border-color: var(--color-zinc-200);
+  --prose-pre-bg-color: var(--color-zinc-100);
+
+  --prose-link-color: var(--color-blue-600);
+  --prose-link-hover-color: var(--color-blue-500);
+
+  --prose-blockquote-border-color: var(--color-zinc-300);
+  --prose-marker-color: var(--color-zinc-300);
+  --prose-hr-color: color-mix(in oklab, var(--color-zinc-950) 5%, transparent);
+
+  &:where(.dark, .dark *) {
+    --prose-color: var(--color-zinc-300);
+    --prose-heading-color: var(--color-zinc-50);
+    --prose-strong-color: var(--color-zinc-50);
+
+    --prose-code-color: var(--color-zinc-50);
+    --prose-code-bg-color: var(--color-zinc-800);
+    --prose-code-border-color: var(--color-zinc-700);
+    --prose-pre-bg-color: color-mix(
+      in oklab,
+      var(--color-zinc-50) 3%,
+      transparent
+    );
+
+    --prose-link-color: var(--color-blue-400);
+    --prose-link-hover-color: var(--color-blue-300);
+
+    --prose-blockquote-border-color: var(--color-zinc-600);
+    --prose-marker-color: var(--color-zinc-600);
+    --prose-hr-color: color-mix(
+      in oklab,
+      var(--color-zinc-50) 10%,
+      transparent
+    );
+  }
+
+  /* Style .prose with base font-size, line-height, and color */
+  font-size: var(--text-base); /* opt2: font-size: var(--text-sm); */
+  line-height: calc(28 / 16); /*  opt2:  line-height: 2; */
+  color: var(--prose-color);
+
+  p:where(:not(.not-prose, .not-prose *)) {
+    margin-top: calc(var(--spacing) * 6);
+  }
+
+  h2:where(:not(.not-prose, .not-prose *)) {
+    font-size: var(--text-lg); /* 18px */
+    font-weight: var(--font-weight-semibold);
+    line-height: calc(28 / 18);
+    letter-spacing: -0.025em;
+    color: var(--prose-heading-color);
+
+    margin-top: calc(var(--spacing) * 20);
+  }
+
+  /* Select h2 elements that are immediately before an h3 */
+  h2:has(+ h3):where(:not(.not-prose, .not-prose *)) {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs); /* 12px */
+    font-weight: var(--font-weight-medium);
+    line-height: 2;
+    letter-spacing: 0.1em; /* 1.2px */
+    text-transform: uppercase;
+    font-variant-ligatures: none;
+    color: var(--prose-color);
+  }
+
+  h3:where(:not(.not-prose, .not-prose *)) {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: calc(28 / 16);
+    color: var(--prose-heading-color);
+
+    margin-top: calc(var(--spacing) * 16);
+  }
+
+  /* Select h3 elements that come immediately after an h2 */
+  h2 + h3:where(:not(.not-prose, .not-prose *)) {
+    margin-top: calc(var(--spacing) * 6);
+  }
+
+  h4:where(:not(.not-prose, .not-prose *)) {
+    font-size: var(--text-sm); /* 14px */
+    font-weight: var(--font-weight-semibold);
+    line-height: calc(28 / 14);
+    color: var(--prose-heading-color);
+    margin-top: calc(var(--spacing) * 12);
+  }
+
+  :is(h2, h3, h4):where(:not(.not-prose, .not-prose *)) {
+    scroll-margin-top: calc(65px + 57px + 40px);
+    @variant md {
+      scroll-margin-top: calc(65px + 40px);
+    }
+  }
+
+  /* Use base font-size, line-height, color */
+  ul:where(:not(.not-prose, .not-prose *)) {
+    list-style-type: disc;
+    padding-left: calc(var(--spacing) * 6);
+    margin-top: calc(var(--spacing) * 6);
+  }
+
+  p + ul:where(:not(.not-prose, .not-prose *)) {
+    margin-top: 0;
+  }
+
+  ol:where(:not(.not-prose, .not-prose *)) {
+    list-style-type: decimal;
+    padding-left: calc(var(--spacing) * 6);
+    margin-top: calc(var(--spacing) * 6);
+  }
+
+  ul li:where(:not(.not-prose, .not-prose *)) {
+    padding-left: calc(var(--spacing) * 3);
+    margin-top: calc(var(--spacing) * 3);
+
+    & ul,
+    & ol {
+      margin-top: 0;
+      padding-left: calc(var(--spacing) * 3);
+    }
+
+    &::marker {
+      color: var(--prose-marker-color);
+    }
+  }
+
+  ol li:where(:not(.not-prose, .not-prose *)) {
+    padding-left: calc(var(--spacing) * 3);
+    margin-top: calc(var(--spacing) * 3);
+
+    & ul,
+    & ol {
+      margin-top: 0;
+      padding-left: calc(var(--spacing) * 3);
+    }
+
+    &::marker {
+      color: var(--prose-color);
+      font-size: var(--text-sm);
+      line-height: calc(20 / 14);
+    }
+
+    & ul li::marker {
+      color: var(--prose-marker-color);
+    }
+  }
+
+  /* Select <a> elements that are not nested inside h2, h3, h4 */
+  a:not(:where(:is(h2, h3, h4) *)):where(:not(.not-prose, .not-prose *)) {
+    color: var(--prose-link-color);
+    transition-property: color;
+    transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: calc(var(--spacing) * 6);
+
+    &:hover {
+      color: var(--prose-link-hover-color);
+    }
+  }
+
+  strong:where(:not(.not-prose, .not-prose *)) {
+    font-weight: var(--font-weight-semibold);
+    color: var(--prose-strong-color);
+  }
+
+  code:where(:not(pre *, .not-prose, .not-prose *)) {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: calc(28 / 14);
+    font-variant-ligatures: none;
+    color: var(--prose-code-color);
+
+    padding-inline: 0.25em;
+    border: 1px solid var(--prose-code-border-color);
+    border-radius: 0.25rem;
+    background: var(--prose-code-bg-color);
+  }
+
+  pre:where(:not(.not-prose, .not-prose *)) {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: calc(20 / 14);
+    font-variant-ligatures: none;
+
+    max-height: calc(var(--spacing) * 120);
+    padding: calc(var(--spacing) * 5);
+    background-color: var(--prose-pre-bg-color);
+    overflow: auto;
+    scrollbar-width: thin;
+  }
+
+  hr:where(:not(.not-prose, .not-prose *)) {
+    border-color: var(--prose-hr-color);
+    margin-block: --spacing(16);
+    & + h2 {
+      margin-top: --spacing(16);
+    }
+  }
+
+  blockquote {
+    font-style: italic;
+    border-inline-start-width: 0.25rem;
+    border-inline-start-color: var(--prose-blockquote-border-color);
+    padding-inline-start: calc(var(--spacing) * 4);
+  }
+
+  blockquote p:first-of-type::before {
+    content: open-quote;
+  }
+
+  blockquote p:last-of-type::after {
+    content: close-quote;
+  }
+
+  :is(h2, h3, h4):where(:not(.not-prose, .not-prose *)) {
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

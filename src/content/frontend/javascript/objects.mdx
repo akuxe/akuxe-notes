@@ -1,0 +1,291 @@
+export const title = 'Objects';
+export const description =
+  'Objects are a core concept in JavaScript, allowing you to group related data, functions, and properties together in a single structure.';
+
+## Object Literal Syntax
+
+```js
+const person = {
+  name: 'John',
+  age: 30,
+  greet() {
+    console.log(`Hello, my name is ${this.name}!`); // "this" refers to the object itself.
+  },
+};
+person.greet(); // Output: Hello, my name is John!
+```
+
+- Objects in JavaScript are **key-value** pairs.
+- Functions defined in objects are called **methods**.
+- When creating multiple similar objects, manually duplicating object code becomes cumbersome. In such cases, we use **Factory functions** or **Constructor functions** to generate new objects.
+- Creating an objects with object literal syntax has an issue only if that object has behavior(method or function) to solve these we use Factory or Constructor Function
+
+## Factory Functions
+
+- A factory function is a regular function that **returns** a new object each time it is called.
+- Uses `return` to explicitly return the object.
+- Called like a regular function without the `new` keyword.
+- Methods are not shared across instances unless explicitly defined.
+- Uses **camelCase** naming convention.
+- `this` inside the function refers(points) to the new object.
+- In modern JavaScript, if the key and value are the same, we can use shorthand notation.
+
+**Syntax:**
+
+```js
+function createPerson(name, age) {
+  return {
+    name,
+    age,
+    greet() {
+      console.log(`Hello, my name is ${this.name}!`);
+    },
+  };
+}
+const person = createPerson('John', 30);
+person.greet(); // Output: Hello, my name is John!
+```
+
+## Constructor Functions
+
+- A constructor function is a function designed to create objects and is used with the `new` keyword.
+- Does not use `return`; the `new` keyword creates and returns the object automatically.
+- Allows methods to be shared across instances via the **prototype**.
+- Must be invoked with `new` to work correctly.
+- Uses **PascalCase** naming convention
+- `this` refers to the new object being created.
+- When we use `new` operator three things happens:
+  1. Creates an empty JS object. ex.`const x = {};`
+  2. It will set `this` to point to new empty object.
+  3. It will return the the new created object from the function.
+
+**Syntax:**
+
+```js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.greet = function () {
+    console.log(`Hello, my name is ${this.name}!`);
+  };
+}
+const person = new Person('John', 30);
+person.greet(); // Output: Hello, my name is John!
+```
+
+## Private Properties and Methods
+
+- **Private Members**: Properties and methods defined inside the constructor function using `let` or `const` are **not accessible** from outside the function, providing encapsulation.
+- **Closure**: Inner functions can access variables from their outer (parent) functions. This allows private members to be used within the function but keeps them hidden from the outside world.
+
+```js
+function Person(name, age) {
+  let _name = name; // Private property
+  let _age = age; // Private property
+
+  // Private method
+  function greet() {
+    console.log(`Hello, my name is ${_name}!`);
+  }
+
+  // Public method to access private method
+  this.showGreeting = function () {
+    greet();
+  };
+}
+
+const person = new Person('John', 30);
+person.showGreeting(); // Output: Hello, my name is John!
+```
+
+## Adding and Deleting Object Properties
+
+- We can dynamically add, update, or delete properties in an object after creation.
+
+```js
+const obj = { a: 1, b: 2 };
+obj.c = 3; // Add property
+delete obj.a; // Delete property
+console.log(obj); // Output: { b: 2, c: 3 }
+```
+
+## Constructor Property
+
+- Every object has a `constructor` property that references (points to) the function that created it.
+- The constructor property allows you to check which function was used to create the object.
+
+```js
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+const person = new Person('John', 30);
+console.log(person.constructor); // Output: [Function: Person]
+```
+
+## Functions Are Objects
+
+- In JavaScript, **functions are first-class objects**. This means they can have properties and methods just like any other object.
+- Functions can be invoked using `.call()` or `.apply()` to explicitly set the value of `this` and pass arguments.
+- `.call()`: Invokes the function and passes arguments individually.
+- `.apply()`: Similar to `.call()`, but arguments are passed as an array.
+
+```js
+function greet(city, country) {
+  console.log(`Hello, my name is ${this.name}. I live in ${city}, ${country}.`);
+}
+
+const person = { name: 'John' };
+
+// Using `.call()` to set `this` and pass arguments individually
+greet.call(person, 'Paris', 'France');
+// Output: Hello, my name is John. I live in Paris, France.
+
+// Using `.apply()` to set `this` and pass arguments as an array
+greet.apply(person, ['Tokyo', 'Japan']);
+// Output: Hello, my name is John. I live in Tokyo, Japan.
+```
+
+Key Points:
+
+- `this` refers to the object passed as the first argument (`person` in this case).
+- `.call()` and `.apply()` allow you to invoke functions with a specific context (`this`) and arguments.
+
+## Value vs Reference Types
+
+- Primitive types are copied by value.
+- Reference types are copied by reference, meaning changes in one object will reflect in another if both point to the same object.
+
+```js
+let a = 10; // Value type
+let b = a;
+b = 20;
+console.log(a); // a remains 10
+
+let x = { value: 10 }; // Reference type
+let y = x;
+y.value = 20;
+console.log(x.value); // x.value is 20
+```
+
+## Enumerating Properties
+
+There are several ways to enumerate over the properties of an object:
+
+- `for-in` loop: Best for iterating over an object's properties.
+- `Object.keys()`: Returns an array of the object's keys.
+- `Object.entries()`: Returns an array of key-value pairs.
+- `in operator`: Checks for the existence of a property in an object.
+
+```js
+const person = {
+  name: 'John',
+  age: 30,
+  city: 'New York',
+};
+```
+
+### for-in loop
+
+```js
+for (let key in person) {
+  console.log(`${key}: ${person[key]}`);
+}
+// Output:
+// name: John
+// age: 30
+// city: New York
+```
+
+### Object.keys()
+
+```js
+const keys = Object.keys(person);
+console.log(keys); // Output: [ 'name', 'age', 'city' ]
+```
+
+### Object.entries()
+
+```js
+const entries = Object.entries(person);
+console.log(entries);
+// Output: [ ['name', 'John'], ['age', 30], ['city', 'New York'] ]
+```
+
+### in Operator
+
+```js
+console.log('name' in person); // Output: true
+console.log('gender' in person); // Output: false
+```
+
+## Cloning Objects
+
+- The spread operator `...` allows us to quickly copy all or part of an existing array or object into another array or object.
+- `Object.assign()` method copies properties from one or more source objects to a target object.
+- A `for-in` loop (old method).
+
+```js
+const original = { a: 1, b: 2 };
+
+const clone = { ...original }; // Spread operator
+
+const clone = Object.assign({}, original); // Object.assign
+
+const clone = {};
+for (let key in original) {
+  clone[key] = original[key]; // for-in loop
+}
+```
+
+## Garbage Collection
+
+- JavaScript handles memory allocation and deallocation automatically, so developers don't need to manually manage memory.
+- Unreferenced objects are cleared by the garbage collector.
+
+```js
+let person = { name: 'John' };
+person = null; // The object { name: "John" } is no longer referenced and will be collected.
+
+// Reassigning Variables
+let user = { name: 'Alice' };
+user = { name: 'Bob' };
+// The object { name: "Alice" } is no longer referenced and will be collected.
+
+// Local Variables in Functions
+function sayHello() {
+  let message = 'Hello, World!';
+  // The string "Hello, World!" is eligible for garbage collection after the function finishes execution.
+}
+sayHello();
+```
+
+## Date Object
+
+- The [Date](https://www.w3schools.com/js/js_dates.asp) object handles dates and times.
+- JavaScript will (by default) output dates using the `toString()` method.
+
+```js
+const now = new Date();
+console.log(now);
+// Output: Sun Jan 12 2025 13:03:03 GMT+0530 (India Standard Time)
+
+now.toTimeString(); // 13:03:03 GMT+0530 (India Standard Time)
+now.toDateString(); // Sun Jan 12 2025
+now.toUTCString(); // Sun, 12 Jan 2025 07:33:03 GMT
+now.toISOString(); // 2025-01-12T07:33:03.511Z
+
+const date = new Date('Jan 11 2018 09:00');
+console.log(date);
+// Output: Thu Jan 11 2018 09:00:00 GMT+0530 (India Standard Time)
+```
+
+## Template Literals
+
+Template literals allow embedding expressions using `${}`.
+
+```js
+const name = 'John';
+console.log(`Hello, ${name}!`); // Output: Hello, John!
+```

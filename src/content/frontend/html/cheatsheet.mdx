@@ -1,0 +1,265 @@
+export const title = 'HTML Cheatsheet';
+export const description =
+  'HTML stands for Hyper Text Markup Language, and it is the building blocks of websites on the internet. In other words, HTML is the skeleton of a website.';
+
+## Document Structure
+
+- `<html>`: The root element of an HTML document.
+- `<head>`: Contains metadata and links to external resources.
+- `<body>`: Contains the main content of the document.
+- [W3Schools HTML Reference](https://www.w3schools.com/tags/default.asp)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample Document</title>
+  </head>
+  <body>
+    <h1>Welcome to My Page</h1>
+  </body>
+</html>
+```
+
+## Semantic Elements
+
+A semantic element clearly describes its meaning to both the browser and the developer.
+
+- `<header>`: Represents the header section of a page or section.
+- `<footer>`: Represents the footer section of a page or section.
+- `<article>`: Represents a self-contained piece of content, like a blog post or news article.
+- `<section>`: Represents a thematic grouping of content.
+- `<nav>`: Represents a navigation menu or links to other pages.
+- `<aside>`: Represents tangentially related content, such as sidebars or advertisements.
+- `<main>`: Represents the main content of the document.
+- `<figure>`: Represents a self-contained content, often with `<figcaption>`.
+- `<figcaption>`: Provides a caption for `<figure>` content.
+- `<div>`: Represents a block-level container (non-semantic).
+- `<span>`: Represents an inline container (non-semantic).
+
+```html
+<header>
+  <!-- <h1>Website Title</h1> -->
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<main>
+  <section>
+    <h2>About Us</h2>
+    <p>We provide awesome services.</p>
+  </section>
+
+  <article>
+    <h2>Blog Post</h2>
+    <p>This is a blog post about HTML.</p>
+    <figure>
+      <img src="image.jpg" alt="Sample image" />
+      <figcaption>Figure 1: A sample image.</figcaption>
+    </figure>
+  </article>
+</main>
+
+<aside>
+  <p>Check out our sidebar content here.</p>
+</aside>
+
+<footer>
+  <p>&copy; 2025 My Website</p>
+</footer>
+
+<div>
+  <p style="color:red;">
+    This is a block-level container for grouping content.
+  </p>
+</div>
+
+<span>This is an inline container for text.</span>
+```
+
+## Text Content
+
+- `<h1> to <h6>`: Headings, with `<h1>` being the highest level.
+- `<p>`: Represents a paragraph.
+- `<span>`: An inline container for styling or grouping text.
+- `<strong>`: Indicates strong importance, typically bolded.
+- `<em>`: Indicates emphasis, typically italicized.
+- `<blockquote>`: Represents a block of quoted text.
+- `<pre>`: Represents preformatted text.
+- `<code>`: Represents a block of code.
+
+```html
+<h1>Main Heading</h1>
+<p>
+  This is a paragraph. <strong>Important text</strong> and
+  <em>emphasized text</em> are here.
+</p>
+<blockquote>"This is a quote from someone famous."</blockquote>
+<pre>
+function greet() {
+  console.log('Hello, world!');
+}
+</pre>
+```
+
+## Lists
+
+- `<ul>`: Represents an unordered list.
+- `<ol>`: Represents an ordered list.
+- `<li>`: Represents a list item.
+
+```html
+<ul>
+  <li>Apple</li>
+  <li>Banana</li>
+  <li>Cherry</li>
+</ul>
+
+<ol>
+  <li>Step 1</li>
+  <li>Step 2</li>
+  <li>Step 3</li>
+</ol>
+```
+
+## Links
+
+`<a>`: Represents a hyperlink. Attributes: download
+
+```html
+<a href="https://example.com" target="_blank" rel="noopener noreferrer"
+  >Visit Example</a
+>
+```
+
+## Forms and Inputs
+
+- `<form>`: Represents a form to collect user input.
+- `<input>`: Represents a form control, like a text box or button. Attributes: required, readonly, disabled, maxlength
+- `<textarea>`: Represents a multi-line text input.
+- `<button>`: Represents a clickable button. Attributes: (type: button, submit, reset), disabled.
+- `<select>`: Represents a dropdown list.
+- `<option>`: Represents an option in a dropdown.
+- `<label>`: Represents a label for form controls.
+
+```html
+<form action="/submit" method="POST">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" placeholder="Enter your name" />
+
+  <label for="message">Message:</label>
+  <textarea id="message" name="message"></textarea>
+
+  <input type="email" id="email" name="email" />
+  <input type="password" />
+  <input type="number" min="1" max="10" />
+  <input type="range" min="0" max="100" />
+  <input type="date" />
+  <input type="file" />
+  <input type="color" />
+  <input type="search" />
+
+  <input type="checkbox" id="bike" name="vehicle" value="Bike" />
+  <label for="bike">I have a bike</label><br />
+
+  <input type="radio" id="html" name="language" value="HTML" />
+  <label for="html">HTML</label><br />
+
+  <label for="color">Favorite Color:</label>
+  <select id="color" name="color">
+    <option value="red">Red</option>
+    <option value="green">Green</option>
+    <option value="blue">Blue</option>
+  </select>
+
+  <button type="submit">Submit</button>
+</form>
+```
+
+## Multimedia
+
+- `<img>`: Embeds an image.
+- `<video>`: Embeds a video.
+- `<audio>`: Embeds an audio file.
+- `<source>`: Specifies multiple media sources for `<video>` or `<audio>`.
+- `<iframe>`: Embeds another HTML page. Attributes: autoplay, allowfullscreen
+
+```html
+<img src="example.jpg" alt="A sample image" />
+
+<video controls>
+  <source src="video.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<audio controls>
+  <source src="audio.mp3" type="audio/mpeg" />
+  Your browser does not support the audio tag.
+</audio>
+```
+
+## Tables
+
+- `<table>`: Represents a table.
+- `<thead>`: Represents the header row group of a table.
+- `<tbody>`: Represents the body rows of a table.
+- `<tr>`: Represents a table row.
+- `<th>`: Represents a header cell in a table (colspan: merges the column).
+- `<td>`: Represents a cell in a table.
+
+```html
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>John</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>Jane</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+## Scripts and Styles
+
+- `<script>`: Embeds JavaScript code or links to an external script.
+- `<link>`: Links to external stylesheets or resources.
+- `<style>`: Embeds CSS styles in the `<head>` section.
+
+```html
+<link rel="stylesheet" href="style.css" />
+<script src="./index.js" defer></script>
+<style>
+  h1 {
+    color: blue;
+  }
+</style>
+```
+
+## Others
+
+- `<br>`: Inserts a line break.
+- `<hr>`: Represents a thematic break, often a horizontal rule.
+- `<meta>`: Defines metadata about the document (e.g., charset, viewport).
+  - `name`: Specifies the metadata name (e.g., description, viewport).
+  - `content`: Sets the value of the metadata.
+- `<title>`: Sets the document's title in the browser tab.
+
+```html
+<meta name="description" content="This is a sample webpage." />
+<title>HTML Tags Example</title>
+```
+
+[W3Schools HTML Element Reference](https://www.w3schools.com/tags/default.asp)

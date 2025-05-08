@@ -1,0 +1,216 @@
+export const title = 'Next.js SEO';
+export const description =
+  'SEO (Search Engine Optimization) in Next.js means setting up your app so search engines (like Google) can properly crawl, index, and rank your pages.';
+
+**Helpful Resources**
+
+- [Next.js Learn - SEO](https://nextjs.org/learn/seo)
+- [SEO in Next.js - The Ultimate Guide](https://youtu.be/wTGVHLyV09M)
+
+## Favicon
+
+- **Used for:** Showing your site's icon in browser tabs, bookmarks, and mobile shortcuts
+- **Recommended size:** `48x48`
+- Place the `favicon.ico` file inside the `/app` directory
+- [Favicon Docs](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/app-icons)
+
+## Static Metadata
+
+- Used to set SEO tags like title, description, and canonical URLs
+- Defined in `layout.tsx`
+- Examples:
+  - `title.default`: fallback title
+  - `title.template`: e.g., `'%s | MySite'`
+  - `title.absolute`: overrides the template
+- [Metadata Optimization](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
+
+## Dynamic Metadata
+
+- For generating metadata based on dynamic routes (e.g., blog slugs)
+- Use the `generateMetadata()` function in your route files
+- [Dynamic Metadata Docs](https://nextjs.org/docs/app/getting-started/metadata-and-og-images#generated-metadata)
+
+## Open Graph Images
+
+- **Used for:** Rich link previews on social media (e.g., Facebook, LinkedIn)
+- **Recommended size:** `1200x630`
+- Place `opengraph-image.jpg` inside the `/app` directory
+- Can also be generated **dynamically**
+- [Open Graph Image Docs](https://nextjs.org/docs/app/getting-started/metadata-and-og-images#static-open-graph-images)
+
+## Dynamic Image Generation
+
+- Use the `ImageResponse` constructor to create images with TSX and CSS
+- [Dynamic Image Docs](https://nextjs.org/docs/app/building-your-application/optimizing/metadata#dynamic-image-generation)
+- [Vercel OG Playground](https://og-playground.vercel.app/)
+
+## Sitemap
+
+- Helps search engines discover and index your site's pages
+- For small sites, create a static `sitemap.xml` in the root
+- To generate dynamically, use `sitemap.ts` in `/app`
+- [Sitemap Docs](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)
+
+## robots.txt
+
+- Tells search engines which pages to crawl or ignore
+- Optional, but useful for SEO control
+- [Robots.txt Docs](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots#generate-a-robots-file)
+
+## Custom 404 Page
+
+- Used to show a proper **"Page Not Found"** screen
+- Create `not-found.tsx` in `/app` or any route folder
+- Use `notFound()` function to redirect there
+- Rendering empty pages is a **bad signal** to search engines — always show meaningful 404 content
+
+## generateStaticParams
+
+- Use this to pre-render dynamic routes at build time instead of on-demand
+- [Static Params Docs](https://nextjs.org/docs/app/api-reference/functions/generate-static-params)
+
+## Server & Client Components
+
+- To reduce client-side JS bundle size:
+  - Keep layouts as **Server Components**
+  - Use Client Components (e.g., `<SearchBar />`) only where interactivity is needed
+- **Rules:**
+  - Server Components can be passed as children to Client Components
+  - You **cannot import Server Components into Client Components**
+
+## Google Search Console
+
+Used to monitor how your site appears in search and which pages are indexed.
+
+**Steps:**
+
+1. Visit [Google Search Console](https://search.google.com/search-console)
+2. Add your domain as a property
+3. Verify ownership (via DNS, HTML meta tag, etc.)
+4. Search `site:yourdomain.com` in Google to check indexing
+
+## SEO Setup Checklist
+
+- Add `app/favicon.ico`
+- Add static metadata in `app/layout.tsx`
+- Use `generateMetadata()` for dynamic pages
+- Add Twitter metadata in both static and dynamic routes
+- Add `app/opengraph-image.jpg`
+- Create `app/api/og/route.tsx` for dynamic Open Graph images
+- Create `app/sitemap.ts`
+- Create `app/robots.ts`
+- Add a custom `app/not-found.tsx` for 404s
+- Use `generateStaticParams()` to prebuild dynamic routes
+- Keep Client Components deep in the component tree
+- Use `<Image>` from `next/image`
+- Use fonts from `next/font`
+- Add a `loading.tsx` for route transitions
+
+## SEO Configuration Example
+
+```tsx
+// !CodeFilename: app/layout.tsx
+import type { Metadata } from 'next';
+import { BASE_URL, siteConfig } from '@/lib/site-config';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
+
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
+  },
+
+  description: siteConfig.description,
+  authors: siteConfig.authors,
+  creator: siteConfig.creator,
+
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.description,
+    type: 'website',
+    locale: 'en_US',
+    url: BASE_URL,
+    siteName: siteConfig.name,
+    images: siteConfig.images,
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: siteConfig.images,
+    creator: siteConfig.twitterHandle,
+  },
+};
+```
+
+```tsx
+// !CodeFilename: app/docs/[slug]/page.tsx
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getDocPageBySlug(slug);
+  const imageUrl = `/api/og?title=${encodeURIComponent(post.title)}&description=${encodeURIComponent(post.description)}`;
+
+  return {
+    title: post.title,
+    description: post.description,
+
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: 'article',
+      url: `/docs/${slug}`,
+      images: [{ url: imageUrl }],
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [{ url: imageUrl }],
+      creator: siteConfig.twitterHandle,
+    },
+  };
+}
+```
+
+```ts
+// !CodeFilename: src/lib/site-config.ts
+export const BASE_URL = getBaseUrl();
+
+export const siteConfig = {
+  name: 'Next.js',
+  description: 'The React Framework for the Web',
+  creator: 'Simu Liu',
+  twitterHandle: '@simu_liu',
+  authors: [{ name: 'Seb' }, { name: 'Josh', url: 'https://nextjs.org' }],
+  images: [
+    {
+      url: '/og-image.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Next.js',
+    },
+  ],
+};
+
+export type SiteConfig = typeof siteConfig;
+
+function getBaseUrl(): string {
+  const url =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : process.env.NEXT_PUBLIC_APP_URL;
+
+  if (!url) {
+    throw new Error('Missing NEXT_PUBLIC_APP_URL in environment variables.');
+  }
+
+  return url;
+}
+```

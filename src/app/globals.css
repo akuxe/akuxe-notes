@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+@import './typography.css' layer(components);
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif;
+  --font-mono: var(--font-fira-code), ui-monospace;
+}
+
+@layer base {
+  html {
+    scrollbar-color: var(--color-zinc-200) transparent;
+    scrollbar-width: thin;
+    @variant dark {
+      scrollbar-color: var(--color-zinc-800) transparent;
+    }
+  }
+}
+
+:root {
+  --sh-identifier: hsl(240, 5%, 34%); /* zinc-600 */
+  --sh-jsxliterals: hsl(240, 5%, 34%);
+  --sh-keyword: hsl(275, 92%, 55%);
+  --sh-property: hsl(207, 81%, 58%);
+  --sh-string: hsl(106, 78%, 43%);
+  --sh-class: hsl(29, 92%, 52%);
+  --sh-entity: hsl(355, 100%, 66%);
+  --sh-sign: hsl(240, 12%, 60%);
+  --sh-comment: hsl(240, 4%, 54%);
+}
+
+.dark {
+  --sh-identifier: hsl(240, 5%, 84%); /* zinc-300 */
+  --sh-jsxliterals: hsl(240, 5%, 84%);
+  --sh-keyword: hsl(275, 80%, 74%);
+  --sh-property: hsl(207, 98%, 66%);
+  --sh-string: hsl(110, 55%, 50%);
+  --sh-class: hsl(29, 75%, 65%);
+  --sh-entity: hsl(355, 75%, 68%);
+  --sh-sign: hsl(240, 12%, 60%);
+  --sh-comment: hsl(240, 4%, 54%);
+}
+
+/* 
+THIS PROJECT STYLE REFERENCE
+
+BG Base             = bg-zinc-50 dark:bg-zinc-950
+BG Base Hover       = hover:bg-zinc-950/5 dark:hover:bg-zinc-50/10
+
+Text Base           = text-zinc-950 dark:text-zinc-50
+
+Text Muted          = text-zinc-600 dark:text-zinc-400 
+Text Muted Hover    = hover:text-zinc-950 dark:hover:text-zinc-50
+
+Text Docs           = text-zinc-700 dark:text-zinc-300
+
+Link Blue           = text-blue-600 dark:text-blue-400
+Link Blue Hover     = hover:text-blue-500 dark:hover:text-blue-300
+
+Border 1            = border-zinc-950/5 dark:border-zinc-50/10 (93%, 13.7%)
+Border 2            = border-zinc-200 dark:border-zinc-800 (90%, 16%)
+
+Icon                = fill-zinc-600 dark:fill-zinc-400 
+
+--------------------
+
+Border 1 used in (950/5, dark-mode:50/10)
+- Header
+- Mobile Sidebar (> Menu)
+- Mobile MainNav (divider) 
+- hr
+
+Border 2 used in (200, dark-mode:800)
+- card
+- pre
+- NavListLink ul (sidebar, toc)
+- Table
+*/

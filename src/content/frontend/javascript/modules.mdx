@@ -1,0 +1,91 @@
+export const title = 'Modules';
+export const description =
+  'Modules in JavaScript enable you to break code into smaller, manageable pieces, promoting maintainability, reusability, and abstraction.';
+
+## Benefits of Modularity
+
+- **Maintainability**: Dividing code into smaller modules makes it easier to maintain.
+- **Reusability**: Code within a module can be reused across different parts of the application.
+- **Abstraction**: Hides implementation details, exposing only what's necessary to other modules.
+
+Before ES6, JavaScript had different ways of handling modules. These formats were primarily used in specific environments like browsers or Node.js.
+
+## CommonJS
+
+CommonJS is a module system used in Node.js. It uses `require` to import and `module.exports` to export.
+
+```js
+// math.js
+function add(a, b) {
+  return a + b;
+}
+
+module.exports = { add };
+
+// main.js
+const math = require('./math');
+console.log(math.add(2, 3)); // Output: 5
+```
+
+## ES6 Modules
+
+ES6 Modules are the standard module system in modern JavaScript. They use `import` and `export`.
+
+```js
+// math.js
+export function add(a, b) {
+  return a + b;
+}
+
+// main.js
+import { add } from './math.js';
+console.log(add(2, 3)); // Output: 5
+```
+
+### Named Exports
+
+Named exports allow you to export multiple things by name from a module.
+
+```js
+// math.js
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+
+// main.js
+import { add, subtract } from './math.js';
+console.log(add(5, 2)); // Output: 7
+console.log(subtract(5, 2)); // Output: 3
+```
+
+### Default Exports
+
+Default exports allow you to export a single default value from a module.
+
+```js
+// math.js
+export default function add(a, b) {
+  return a + b;
+}
+
+// main.js
+import add from './math.js';
+console.log(add(2, 3)); // Output: 5
+```
+
+### Handling Modules in HTML
+
+When using ES6 modules in a browser, we need to specify the `type="module"` attribute in the script tag.
+
+```html
+<script type="module" src="index.js"></script>
+```
+
+Without this attribute, the browser will not recognize the file as an ES6 module and will throw an error.
+
+## ES6 Tooling
+
+While ES6 modules work natively in modern browsers, you may still need tools like Babel and Webpack for older browsers or advanced use cases.
+
+**Babel**: A transpiler that converts modern JavaScript (ES6+) into backward-compatible JavaScript (ES5). It's especially useful when you want to use modern JavaScript features but still support older browsers.
+
+**Webpack**: A module bundler that allows you to bundle all your JavaScript files into a single file for easier inclusion in the browser.

@@ -1,0 +1,218 @@
+export const title = 'Functions';
+export const description =
+  'JavaScript functions are essential building blocks for organizing and executing reusable pieces of code.';
+
+## Function Declarations and Expressions
+
+- **Function Declarations:** Named functions defined using the `function` keyword; hoisted to the top of their scope.
+- **Function Expressions:** Functions assigned to variables; can be anonymous or named; not hoisted.
+
+### Function Declaration
+
+```js
+function greet(name) {
+  return `Hello, ${name}!`;
+} // No semicolon required after a declaration.
+
+greet('Alice'); // "Hello, Alice!"
+```
+
+### Function Expression
+
+- Functions stored in a variable.
+- Functions can be anonymous or named.
+- Named function expressions are primarily used for debugging or recursion.
+
+```js
+// Anonymous Function
+const greet = function (name) {
+  return `Hello, ${name}!`;
+}; // Semicolon required
+
+greet('Bob'); // "Hello, Bob!"
+
+// Named Function
+const greet = function sayHello(name) {
+  return `Hello, ${name}!`;
+};
+greet('Charlie'); // "Hello, Charlie!"
+```
+
+- In named function, `greet` is accessible, but `sayHello` is not accessible outside the expression.
+- Use function declarations for better readability and hoisting.
+- Use function expressions for dynamic assignment or closures.
+
+## Hoisting
+
+Hoisting allows function declarations to be called before their definitions. However, function expressions are not hoisted.
+
+```js
+add(2, 3); // 5
+function add(a, b) {
+  return a + b;
+}
+
+// This will throw an error:
+subtract(2, 3); // ReferenceError: Cannot access 'subtract' before initialization
+const subtract = (a, b) => a - b;
+```
+
+## Arguments Object
+
+An array-like object containing arguments passed to a function.
+
+```js
+function sum() {
+  let total = 0;
+  for (let value of arguments) total += value;
+  return total;
+}
+
+console.log(sum(1, 2, 3, 4, 5)); // Output: 15
+```
+
+## Rest Operator
+
+The `...rest` operator collects all arguments into an array.
+
+```js
+function sum(...args) {
+  return args.reduce((a, b) => a + b);
+}
+
+console.log(sum(1, 2, 3, 4, 5)); // Output: 15
+```
+
+**Example: Using the Rest Operator in Context**
+
+```js
+function sum(discount, ...prices) {
+  const total = prices.reduce((a, b) => a + b);
+  return total * (1 - discount);
+}
+
+console.log(sum(0.1, 20, 30)); // Output: 45
+```
+
+## Default Parameters
+
+Default parameters allow you to set default values for function arguments.
+
+```js
+function interest(principal, rate = 3.5, years = 5) {
+  return ((principal * rate) / 100) * years;
+}
+
+console.log(interest(10000)); // Output: 1750
+```
+
+## Getters and Setters
+
+- **Getters:** Access properties. We can log the method as property without using `()`.
+- **Setters:** Modify properties.
+
+```js
+const person = {
+  firstName: 'John',
+  lastName: 'Doe',
+
+  // Getter for fullName
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+
+  // Setter for fullName
+  set fullName(name) {
+    const parts = name.split(' ');
+    this.firstName = parts[0];
+    this.lastName = parts[1];
+  },
+};
+
+// Using the getter
+console.log(person.fullName); // "John Doe"
+
+// Using the setter
+person.fullName = 'Jane Smith';
+console.log(person.fullName); // "Jane Smith"
+```
+
+## Try and Catch (Error Handling)
+
+[JavaScript Errors](https://www.w3schools.com/js/js_errors.asp)
+
+- `throw` used to throw an error or exception. The thrown object can be any type, but usually an `Error` object is used.
+- Executes code in the `try` block. If an error is thrown, the `catch` block handles it.
+- The `finally` block executes after try and catch, regardless of the outcome (success or error).
+- The `throw` statement defines a custom error.
+
+```js
+function divide(a, b) {
+  if (b === 0) {
+    throw new Error('Division by zero is not allowed');
+  }
+  return a / b;
+}
+console.log(divide(4, 0)); // Throws "Division by zero is not allowed"
+
+try {
+  const result = divide(4, 0); // Throws error
+  console.log(result);
+} catch (error) {
+  console.error('Error caught:', error.message);
+} finally {
+  console.log('Execution complete.');
+}
+// Output:
+// Error caught: Division by zero is not allowed
+// Execution complete.
+```
+
+## Local vs Global Scope
+
+**Global Scope**: Variables declared outside any function or block are accessible anywhere in the script.
+
+**Local Scope**: Variables declared inside a function are accessible only within that function.
+
+**Block Scope**: Variables declared with `let` or `const` inside `{}` are accessible only within that block.
+
+**Function Scope**: `var` is function-scoped and accessible throughout the function where it's declared.
+
+- `var`: Can be reassigned and redeclared (function-scoped). Hoists to the top and is initialized as `undefined`.
+- `let`: Can be reassigned but not redeclared (block-scoped).
+- `const`: Cannot be reassigned or redeclared (block-scoped)
+
+```js
+console.log(x); // Output: undefined (due to hoisting)
+var x = 10;
+
+function myFunction() {
+  if (true) {
+    var funcVar = 'I am function-scoped';
+    const blockVar = 'I am block-scoped';
+  }
+  console.log(funcVar); // "I am function-scoped"
+  console.log(blockVar); // ReferenceError: blockVar is not defined
+}
+```
+
+## Arrow Functions
+
+- Arrow functions provide a concise way to define functions.
+- The arrow syntax is a short form for anonymous functions.
+- Arrow functions cannot have names directly assigned like named function expressions.
+
+```js
+const add = (a, b) => a + b;
+console.log(add(2, 3)); // 5
+```
+
+- For single-line functions, the `return` keyword is implicit.
+- Use `()` when there are no `arguments`.
+- Parentheses `()` are optional for a single argument.
+- Use curly braces `{}` for multiline logic; explicit `return` is required.
+- Wrap the object in parentheses `()` to return it directly. `(id) => ({ id, name: 'John Doe' });`
+- Default values can be assigned to `parameters`.
+- Arrow functions are commonly used as callbacks. `numbers.map((n) => n * 2);`
+- We can use arrow functions in an IIFE (Immediately Invoked Function Expression). `(() => console.log('IIFE executed!'))();`
+- Arrow functions can handle an arbitrary number of arguments using `...rest` parameters (Collects all arguments into an array). `(...nums) => nums.reduce((sum, num) => sum + num, 0);`

@@ -1,0 +1,240 @@
+export const title = 'Arrays';
+export const description =
+  'An array can hold many values under a single name, and we can access the values by referring to an index number.';
+
+## Adding Elements
+
+- `push()`✍️: Adds new elements to the end of an array. Returns: The new length of the array.
+- `unshift()`✍️: Adds elements to the beginning of an array. Returns: The new length of the array.
+- `splice()`✍️: Adds and/or removes elements at a specific index.
+
+```js
+const arr = [1, 2, 3];
+
+arr.push(4); // [1, 2, 3, 4]
+arr.unshift(0); // [0, 1, 2, 3, 4]
+arr.splice(2, 0, 'a', 'b'); // [0, 1, 'a', 'b', 2, 3, 4] (index 2, delete 0)
+```
+
+- ✍️ emoji: overwrites the original array
+- ✨ emoji: returns a new array
+
+## Removing Elements
+
+- `pop()`✍️: Removes the last element of an array. Returns: The removed element.
+- `shift()`✍️: Removes the first element of an array. Returns: The removed element.
+- `splice()`✍️: Adds and/or removes elements at a specific index.
+
+```js
+const arr = [1, 2, 3, 4, 5];
+
+const last = arr.pop(); // Remove from the end
+console.log(last); // Output: 5
+console.log(arr); // Output: [1, 2, 3, 4]
+
+arr.shift(); // [2, 3, 4]
+
+// array.splice(index, count-O, items....-O)
+arr.splice(1, 2); // [2], Removes 2 elements starting at index 1
+```
+
+## Finding Elements (Primitives)
+
+- `indexOf()`: Returns: First index of a specified element or -1 if not found.
+- `lastIndexOf()`: Returns: Last index of a specified element or -1 if not found.
+- `includes()`: Checks if an array contains a specified element. Returns: A boolean
+- We can also use `find`, `findIndex`, `findLast` and `findLastIndex` in primitive types.
+
+```js
+const arr = [10, 20, 30, 20];
+
+// array.indexOf(item, start-O️️)
+arr.indexOf(20); // 1
+
+// array.lastIndexOf(item, start-O️️)
+arr.lastIndexOf(20); // 3
+
+// array.includes(element, start-O️️)
+arr.includes(20); // true
+```
+
+## Finding Elements (Objects / Reference Types)
+
+- `find()`: Returns: The first element that satisfies a provided testing function, or undefined if no elements are found.
+- `findIndex()`: Returns: The index of the first element that satisfies a provided testing function, or -1 if not found.
+- Other find methods `findLast()`, `findLastIndex()`.
+
+```js
+const arr = [
+  { id: 1, name: 'John' },
+  { id: 2, name: 'Jane' },
+];
+
+// Find an object by property
+// array.find(function(currentValue, index-O️️, arr-O️️),thisValue-O️️)
+const result = arr.find((obj) => obj.name === 'Jane');
+console.log(result); // Output: { id: 2, name: 'Jane' }
+
+// Find the index of an object by property
+// array.findIndex(function(currentValue, index-O️️, arr-O️️), thisValue-O️️)
+const index = arr.findIndex((obj) => obj.id === 1);
+console.log(index); // Output: 0
+```
+
+## Emptying an Array
+
+```js
+let arr = [1, 2, 3, 4];
+
+// Method 1: Set length to 0
+arr.length = 0;
+console.log(arr); // Output: []
+
+// Method 2: Reassign to a new array (if no references)
+arr = [];
+console.log(arr); // Output: []
+
+// Method 3: Splice all elements
+arr = [1, 2, 3, 4];
+arr.splice(0, arr.length);
+console.log(arr); // Output: []
+```
+
+## Combining and Slicing Arrays
+
+- `concat()`✨: Concatenates (joins) two or more arrays. Returns: A new array, containing the joined arrays.
+- `slice()`✨: Selects from a given start, up to a (not inclusive) given end. Returns: A new array containing the selected elements.
+- The spread operator (...) allows us to quickly copy all or part of an existing array or object into another array or object.
+
+```js
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+
+// Combine arrays
+const combined = arr1.concat(arr2);
+console.log(combined); // Output: [1, 2, 3, 4, 5, 6]
+
+// Spread operator
+const combinedSpread = [...arr1, ...arr2];
+console.log(combinedSpread); // [1, 2, 3, 4, 5, 6]
+
+// Slice part of an array
+const sliced = combined.slice(1, 4); // (start, end-O)
+console.log(sliced); // Output: [2, 3, 4]
+```
+
+## Iterating Over Arrays
+
+- `map()`✨: Returns: A new array from calling a function for every array element.
+- `filter()`✨: Returns: A new array of elements that pass the test, or empty array if no elements pass the test.
+- `forEach()`: Executes a provided function once for each array element without returning anything.
+- `every()`: true if all elements pass the test, otherwise false. Returns: A Boolean.
+- `some()`: true if any of the array elements pass the test, otherwise false. Returns: A Boolean.
+- `for-of` for simple iteration.
+
+```js
+const arr = [1, 2, 3];
+
+// array.map(function(currentValue, index-O, arr-O), thisValue-O)
+const mapped = arr.map((num) => num * 2);
+console.log(mapped); // Output: [2, 4, 6]
+
+// array.filter(function(currentValue, index-O, arr-O), thisValue-O)
+const filtered = arr.filter((num) => num > 1);
+console.log(filtered); // Output: [2, 3]
+
+// array.forEach(function(currentValue, index-O, arr-O), thisValue-O)
+arr.forEach((element, index) => console.log(index, element));
+// Output:
+// 0 1
+// 1 2
+// 2 3
+
+// array.every(function(currentValue, index-O, arr-O), thisValue-O)
+arr.every((num) => num < 5); // true
+
+// array.some(function(value, index-O, arr-O), thisValue-O)
+arr.some((num) => num > 10); // false
+
+for (const element of arr) {
+  console.log(element);
+}
+// Output:
+// 1
+// 2
+// 3
+```
+
+## Joining Arrays to String
+
+- `join()`: Joins all elements of an array into a string using a specified separator. Returns: A string.
+
+```js
+const arr = ['Hello', 'World'];
+
+arr.join(' '); // "Hello World"
+arr.join('-'); // "Hello-World"
+```
+
+## Sorting Arrays
+
+- `sort()`✍️: Sorts the elements of an array in place and returns the sorted array.
+- `reverse()`✍️: Reverses the order of elements in an array in place.
+
+```js
+const numbers = [10, 3, 5, 1];
+const words = ['banana', 'apple', 'cherry'];
+
+// Sort numbers
+numbers.sort((a, b) => a - b);
+console.log(numbers); // Output: [1, 3, 5, 10]
+
+numbers.reverse();
+console.log(numbers); // Output: [10, 5, 3, 1]
+
+// Sort strings
+words.sort();
+console.log(words); // Output: ["apple", "banana", "cherry"]
+
+words.reverse();
+console.log(words); // Output: ["cherry", "banana", "apple"]
+```
+
+## Reducing Arrays
+
+`reduce()`: Executes a reducer function on each element. Returns: A single value, the function's accumulated result.
+
+```js
+const arr = [1, 2, 3, 4];
+
+// array.reduce(function(total, currentValue, currentIndex-O, arr-O), initialValue-O)
+const sum = arr.reduce((acc, curr) => acc + curr, 0);
+console.log(sum); // Output: 10
+```
+
+## Other Array Methods
+
+```js
+const arr = [1, 2, 3, 4, 5];
+const nestedArr = [1, [2, 3], [4, [5]]];
+
+arr.length; // 5 (returns the number of elements in the array)
+arr.toString(); // "1,2,3,4,5" (converts the array to a comma-separated string)
+nestedArr.flat(); // [1, 2, 3, 4, [5]] (✨flattens the array one level deep)
+nestedArr.flat(2); // [1, 2, 3, 4, 5] (✨flattens the array to the specified depth)
+arr.flatMap((x) => [x, x * 2]); // [1, 2, 2, 4, 3, 6, 4, 8, 5, 10] (✨maps and flattens in one step)
+arr[1]; // 2
+arr.at(-1); // 5 (returns the last element using a negative index)
+Array.isArray(arr); // true (checks if the value is an array)
+Array.from('ABCD'); // ["A", "B", "C", "D"] (✨creates an array from an iterable or array-like object)
+Array.of(10, 20, 30); // [10, 20, 30] (✨creates a new array with the specified elements)
+arr.fill(0, 1, 4); // [1, 0, 0, 0, 5] (✍️fills elements from index 1 to 3 with 0)
+arr.copyWithin(1, 3); // [1, 4, 5, 4, 5] (✍️copies part of the array within itself, Copy to index 1, all elements from index 3:)
+arr.toReversed(); // [5, 4, 3, 2, 1] (✨returns a reversed copy of the array, does not mutate)
+arr.toSorted((a, b) => b - a); // [✨5, 4, 3, 2, 1] (returns a sorted copy of the array, does not mutate)
+arr.toSpliced(1, 2, 99, 100); // [✨1, 99, 100, 4, 5] (returns a copy with specified elements added/removed)
+arr.entries(); // Array Iterator (returns key-value pairs for each element)
+arr.keys(); // Array Iterator (returns keys/indexes of the array)
+arr.values(); // Array Iterator (returns values of the array)
+arr.with(2, 99); // [1, 2, 99, 4, 5] (✨returns a copy with value at index 2 replaced)
+```

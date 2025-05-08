@@ -1,0 +1,120 @@
+export const title = 'Conditional Statements';
+export const description =
+  'Conditional statements and loops in JavaScript allow you to control the flow of execution based on conditions and iterate over data.';
+
+## If else
+
+The `if-else` statement executes a statement if a specified condition is truthy.
+
+```js
+let hour = 10;
+
+if (hour >= 6 && hour < 12) {
+  console.log('Good morning!');
+} else if (hour >= 12 && hour < 18) {
+  console.log('Good afternoon!');
+} else {
+  console.log('Good evening!');
+}
+// Output: Good morning!
+```
+
+## Switch and Case
+
+- The `switch` statement is used to perform different actions based on different conditions.
+- Use the `switch` statement to select one of many code blocks to be executed.
+- Easier to read than nested `if-else` blocks.
+
+```js
+let role = 'guest';
+
+switch (role) {
+  case 'guest':
+    console.log('Guest user');
+    break;
+  case 'moderator':
+    console.log('Moderator user');
+    break;
+  default:
+    console.log('Unknown user');
+    break;
+}
+```
+
+## Loops
+
+Repeatedly execute a block of code. Common types:
+
+- `for`
+- `while`
+- `do while`
+
+### For Loop
+
+```js
+for (let i = 0; i <= 5; i++) {
+  console.log('Hello World', i);
+}
+// Output: Hello World 0 to Hello World 5
+```
+
+### While Loop
+
+```js
+let i = 0;
+
+while (i <= 5) {
+  console.log(i);
+  i++;
+}
+```
+
+- Key Difference:
+  - In `for`, the loop variable is part of the syntax.
+  - In `while`, we declare the variable externally.
+
+### Do While Loop
+
+Executes at least once before checking the condition.
+
+```js
+let i = 0;
+do {
+  console.log(i);
+  i++;
+} while (i <= 5);
+```
+
+### For-In Loop (Object)
+
+Loops through the properties of an Object.
+
+```js
+const person = {
+  name: 'John',
+  age: 30,
+};
+
+for (let key in person) {
+  console.log(key, person[key]);
+}
+// Output:
+// name John
+// age 30
+```
+
+### For-Of Loop (Array)
+
+Loops through the values of an iterable object (Arrays, Strings, Maps, NodeLists, and more).
+
+```js
+const colors = ['red', 'green', 'blue'];
+
+for (let color of colors) {
+  console.log(color);
+}
+// Output:
+// red
+// green
+// blue
+```

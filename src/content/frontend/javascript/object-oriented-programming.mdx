@@ -1,0 +1,295 @@
+export const title = 'Object Oriented Programming';
+export const description =
+  'OOP is a programming paradigm where a program is viewed as a collection of interacting objects, each having properties and behaviors.';
+
+## 4 Pillars of Object-Oriented Programming (OOP)
+
+1. **Encapsulation**: Reduces complexity and increases reusability by bundling related variables and methods into a single unit.
+2. **Abstraction**: Hides internal details and exposes only the necessary functionality, simplifying interaction with objects.
+3. **Inheritance**: Eliminates redundant code by allowing objects to inherit properties and methods from other objects.
+4. **Polymorphism**: Helps to simplify conditional logic and enables flexible, reusable code by allowing objects of different types to behave similarly.
+
+## Encapsulation
+
+**Encapsulation** is the process of bundling related variables and methods into a single unit, called an object. This principle helps reduce complexity and improves code maintainability by keeping related information together.
+
+Example: Procedural Programming vs OOP
+
+**Procedural Programming:**
+
+In procedural programming, functions and variables are often decoupled, leading to complex interdependencies. For example, when we change one function, other functions that depend on it might break.
+
+```js
+let baseSalary = 30_000;
+let overtime = 10;
+let rate = 20;
+
+function getWage(baseSalary, overtime, rate) {
+  return baseSalary + overtime * rate;
+}
+```
+
+**Object-Oriented Programming (OOP):**
+
+By grouping related variables and methods together in an object, we reduce the number of parameters and make the code easier to use and maintain.
+
+```js
+let employee = {
+  baseSalary: 30_000,
+  overtime: 10,
+  rate: 20,
+  getWage: function () {
+    return this.baseSalary + this.overtime * this.rate;
+  },
+};
+```
+
+- Encapsulation reduces complexity by bundling related data and methods.
+- It simplifies maintenance and enhances the reusability of code.
+
+## Abstraction
+
+Abstraction is the practice of hiding the internal complexities of an object and exposing only the necessary details. This allows users to interact with an object without needing to understand its internal workings.
+
+```js
+class DVDPlayer {
+  constructor() {
+    this.internalLogic = 'complex DVD decoding logic';
+  }
+
+  play() {
+    console.log('Playing DVD');
+  }
+
+  pause() {
+    console.log('Pausing DVD');
+  }
+}
+```
+
+In this example, the user can interact with the DVD player by calling `play()` or `pause()`, but they don't need to know the underlying logic involved in these actions.
+
+- Abstraction hides complexity and simplifies the interface.
+- It makes it easier to change the internal logic without affecting external users.
+
+## Inheritance
+
+Inheritance is a mechanism that allows objects to inherit properties and methods from other objects. This reduces redundancy and enables code reuse.
+
+- Inheritance allows you to define common properties and methods in a "base" object and have other objects inherit those properties and methods.
+- It helps eliminate repetitive code and provides a way to create more specialized objects based on a generic base.
+
+```js
+class HTMLInputElement {
+  constructor() {
+    this.hidden = false;
+    this.innerHTML = '';
+  }
+
+  click() {
+    console.log('Element clicked');
+  }
+
+  focus() {
+    console.log('Element focused');
+  }
+}
+
+class TextBox extends HTMLInputElement {
+  constructor() {
+    super(); // Inherit from HTMLInputElement
+    this.placeholder = 'Enter text';
+  }
+}
+
+const textBox = new TextBox();
+textBox.click(); // Output: "Element clicked"
+```
+
+- Inheritance reduces redundant code by allowing objects to inherit shared properties and methods from other objects.
+- It enhances maintainability and scalability by enabling specialization of objects.
+
+**JavaScript supports two types of inheritance:**
+
+1. Classical Inheritance.
+2. Prototypal Inheritance.
+
+**Classical Inheritance:**
+
+- Classical inheritance is common in languages like Java and C#, where objects are created from classes.
+- In classical inheritance, a class acts as a blueprint to create objects. Classes can inherit properties and methods from other classes, forming a hierarchy.
+
+**Prototypal Inheritance:**
+
+- JavaScript uses **prototypal inheritance** by default. In this model, objects can directly inherit properties and methods from other objects (not classes).
+- Instead of creating objects from classes, each object has a **prototype**, another object from which it inherits properties and methods.
+
+```js
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.sayHello = function () {
+  console.log(`Hello, I am ${this.name}`);
+};
+
+const dog = new Animal('Dog');
+dog.sayHello(); // "Hello, I am Dog"
+
+// returns only instances
+console.log(Object.keys(dog)); // ['name']
+
+// returns all members (instances + prototype)
+for (let key in dog) {
+  console.log(key);
+}
+// name
+// sayHello
+
+console.log(dog.hasOwnProperty('name')); // true
+console.log(dog.hasOwnProperty('sayHello')); // false
+```
+
+## Prototypical Inheritance
+
+- In JavaScript, inheritance is implemented using prototypes.
+- Prototypical inheritance allows objects to inherit properties and methods from other objects.
+
+### Creating Your Own Prototypical Inheritance
+
+When creating objects in JavaScript, we often want one object to inherit properties and methods from another. This can be achieved using prototypes.
+
+```js
+function Dog(name, breed) {
+  Animal.call(this, name); // Calling parent constructor. Sets the name property on the Dog instance.
+  this.breed = breed;
+}
+
+// Dog.prototype = Object.create(Object.prototype);
+// Before the Dog was like the above code it inheritance from the object prototype
+Dog.prototype = Object.create(Animal.prototype); // Inherit methods and properties from Animal
+Dog.prototype.constructor = Dog; // Reset constructor to Dog, instead of Animal
+
+const dog = new Dog('Buddy', 'Golden Retriever');
+dog.sayHello(); // "Hello, I am Buddy"
+```
+
+- Prototypical inheritance allows objects to share methods.
+- The `Object.create()` method is used to set up the prototype chain.
+- Constructor Reset: After `Dog.prototype = Object.create(Animal.prototype)`, the `constructor` property of `Dog.prototype` would point to `Animal`, not `Dog`. So, we explicitly reset it with `Dog.prototype.constructor = Dog;` to maintain the correct constructor reference.
+
+### Method Overriding
+
+In prototypical inheritance, a child object can override methods inherited from its prototype.
+
+```js
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.sayHello = function () {
+  console.log(`Hello, I am ${this.name}`);
+};
+
+function Dog(name, breed) {
+  Animal.call(this, name);
+  this.breed = breed;
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.sayHello = function () {
+  // Overriding method
+  console.log(`Woof, I am a ${this.breed} named ${this.name}`);
+};
+
+const dog = new Dog('Buddy', 'Golden Retriever');
+dog.sayHello(); // "Woof, I am a Golden Retriever named Buddy"
+```
+
+- When calling `dog.sayHello()`, JavaScript looks first in the `Dog` prototype, where it finds the overridden method.
+- Method overriding allows a child object to provide its own implementation of inherited methods.
+- JavaScript uses the prototype chain to resolve method calls, starting with the object's own prototype.
+
+### Problems with Inheritance
+
+- **Increased Complexity**: Deep inheritance chains can lead to complex and hard-to-debug code.
+- **Method Overriding Issues**: When methods are overridden in subclasses, it may lead to unexpected behavior if not handled properly.
+- For Example: In the traditional inheritance model, certain objects might inherit methods that don't make sense for them, such as a goldfish inheriting the walk method from an Animal prototype.
+
+### Mixins
+
+Mixins allow you to compose multiple objects together, providing a cleaner and more flexible alternative to inheritance hierarchies.
+
+```js
+const canSwim = {
+  swim() {
+    console.log(`${this.name} can swim!`);
+  },
+};
+
+const canWalk = {
+  walk() {
+    console.log(`${this.name} can Walk!`);
+  },
+};
+
+function Person(name) {
+  this.name = name;
+}
+
+function Goldfish(name) {
+  this.name = name;
+}
+
+Object.assign(Person.prototype, canSwim, canWalk); // Mix in swim and walk method
+Object.assign(Goldfish.prototype, canSwim); // Mix in swim method
+
+const john = new Person('John');
+john.swim(); // "John can swim!"
+```
+
+- The `Object.assign()` method is used to copy methods from `swim` and `canWalk` into the `Person` object.
+- Mixins provide a simple way to add shared behavior to objects without the need for deep inheritance chains.
+
+## Polymorphism
+
+- Polymorphism means "many forms," and you to use the same method name for different object types, with each type providing its own implementation.
+- It also helps in eliminating the need for long, complex conditional statements (like if/else or switch/case).
+- Polymorphism enables you to define a common interface for different objects, making your code more flexible.
+- It helps to simplify conditional logic by replacing lengthy conditionals with polymorphic behavior.
+
+Example: Consider a scenario where you need to make animals make sounds. Instead of checking the type of animal with a switch or if statement, you can use polymorphism to call the `makeSound()` method on any animal, regardless of its specific type.
+
+```js
+class Animal {
+  speak() {
+    console.log('This animal makes a sound.');
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log('The dog barks.');
+  }
+}
+
+class Cat extends Animal {
+  speak() {
+    console.log('The cat meows.');
+  }
+}
+
+const animals = [new Animal(), new Dog(), new Cat()];
+
+animals.forEach((animal) => animal.speak());
+// This animal makes a sound.
+// The dog barks.
+// The cat meows.
+```
+
+- Each `animals` (Dog, Cat) overrides the `speak()` method, allowing polymorphic behavior.
+- This eliminates the need for `if` statements, making the code cleaner and more maintainable.
+- Polymorphism enables different objects to respond to the same method in their own way.
+- This is useful for making your code more flexible and removing unnecessary conditional logic.

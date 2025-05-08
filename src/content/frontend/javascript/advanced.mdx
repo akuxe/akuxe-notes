@@ -1,0 +1,811 @@
+export const title = 'Advanced';
+export const description =
+  'Advanced JavaScript concepts including closures, event delegation, promises, async/await, recursion, browser storage, and understanding "this".';
+
+## Closures
+
+[JavaScript Visualized - Closures](https://youtu.be/6Ixyltr8_R0)
+
+A closure gives access to a function's scope even after the outer function has executed.
+
+```js
+function makeCounter() {
+  let count = 0;
+  return function () {
+    count++;
+    return count;
+  };
+}
+
+const counter = makeCounter();
+console.log(counter()); // Output: 1
+console.log(counter()); // Output: 2
+```
+
+- The `makeCounter()` function is invoked, creating a new instance of `count` (initialized to 0) and returning the inner function.
+- The returned function (the closure) has access to the `count` variable from the outer `makeCounter` scope.
+- Each time `counter()` is called, the closure increments and returns the value of `count`, maintaining its state across calls.
+
+## Optional Chaining
+
+Access nested properties without checking if they exist.
+
+```js
+const user = { profile: { name: 'John' } };
+console.log(user.profile?.name); // Output: John
+console.log(user.address?.street); // Output: undefined
+```
+
+## Destructuring
+
+Extract values from arrays or objects.
+
+```js
+// Array Destructuring
+const array = [1, 2];
+const [a, b] = array;
+// Equivalent to:
+// const a = array[0];
+// const b = array[1];
+
+// Object Destructuring
+const person = { name: 'John', age: 30 };
+const { name, age } = person;
+// Equivalent to:
+// const name = person.name;
+// const age = person.age;
+
+console.log(a, b); // Output: 1 2
+console.log(name, age); // Output: John 30
+```
+
+## Document ID and Class Selectors
+
+JavaScript provides methods to select elements by their ID or class.
+
+```js
+// Select an element by ID
+const elementById = document.getElementById('id-name');
+elementById.style.color = 'red';
+
+// Select elements by class
+const elementsByClass = document.getElementsByClassName('class-name');
+elementsByClass[0].style.color = 'green'; // selecting individual class
+```
+
+## Query Selectors
+
+`querySelector` and `querySelectorAll` allow you to use CSS selectors to target elements.
+
+```js
+const firstElement = document.querySelector('.class-name');
+const allElements = document.querySelectorAll('.class-name');
+```
+
+## Data Attributes
+
+Custom attributes prefixed with `data-` can store data in HTML.
+
+```html
+<div data-user-id="123"></div>
+```
+
+```js
+const userId = document.querySelector('[data-user-id]').dataset.userId;
+console.log(userId); // Output: 123
+```
+
+## Event Listeners
+
+Event listeners handle user interactions like clicks.
+
+```js
+document.getElementById('button').addEventListener('click', () => {
+  console.log('Button clicked!');
+});
+```
+
+## DOM Traversal
+
+Navigate through the DOM using properties like `parentNode`, `children`, or `nextSibling`.
+
+```js
+const parent = document.querySelector('.child').parentNode;
+console.log(parent);
+```
+
+## Script: Normal, Async, vs Defer
+
+- **Normal**: Blocks rendering until the script loads and executes.
+- **Async**: Loads in parallel and executes immediately when ready.
+- **Defer**: Loads in parallel but executes after HTML parsing.
+
+```js
+// Normal
+<script src="script.js"></script>
+// Async
+<script async src="script.js"></script>
+// Defer
+<script defer src="script.js"></script>
+```
+
+## Event Delegation
+
+Event delegation is a powerful technique for managing events on elements, especially when those elements are dynamically created.
+
+- The main idea behind Event Delegation is that instead of attaching event listeners directly to each button, we attach a single event listener to a common parent element.
+
+```js
+document.getElementById('parent').addEventListener('click', (e) => {
+  if (e.target.matches('.child')) {
+    console.log('Child clicked!');
+  }
+});
+```
+
+## Browser Storage
+
+Store data in the browser using localStorage and sessionStorage.
+
+```js
+localStorage.setItem('key', 'value');
+console.log(localStorage.getItem('key')); // Output: value
+```
+
+## Type Coercion
+
+Type Coercion is the process where JavaScript automatically converts one data type to another when performing operations.
+
+This happens in two forms: **Explicit Coercion** (manual) and **Implicit Coercion** (automatic)
+
+### Explicit Coercion (manual)
+
+```js
+// Explicit type coercion
+let a = '1.3';
+
+console.log(typeof a); // Output: string
+console.log(parseInt(a)); // Output: 1
+console.log(parseFloat(a)); // Output: 1.3
+
+let b = 1.3;
+console.log(typeof b); // Output: number
+console.log(b.toString()); // Output: "1.3"
+```
+
+### Implicit Coercion (automatic)
+
+#### String Concatenation
+
+```js
+console.log('5' + 2); // "52" (number 2 is coerced to string)
+console.log(5 + '2'); // "52" (number 5 is coerced to string)
+```
+
+The `+` operator is used for both addition and string concatenation. If one operand is a string, JavaScript assumes string concatenation.
+
+#### Subtraction, Multiplication, and Division
+
+```js
+console.log('5' - 2); // 3 (string "5" is coerced to number)
+console.log('6' / '2'); // 3 (both strings are coerced to numbers)
+```
+
+These operators are mathematically oriented, so JavaScript tries to coerce strings to numbers to perform the operation.
+
+#### Boolean Coercion in Conditional Statements
+
+JavaScript coerces values to true or false when used in conditions.
+
+- Falsy values include: `false`, `0`, `""`, `undefined`, `null`, and `NaN`. Anything else is truthy.
+
+```js
+if ('') {
+  console.log("This won't run"); // Falsy
+}
+
+if ('hello') {
+  console.log('This will run'); // Truthy
+}
+```
+
+#### Coercion with null and undefined
+
+Arithmetic operations with null treat it as 0, while undefined becomes NaN.
+
+```js
+console.log(null == undefined); // true (loosely equal)
+console.log(null === undefined); // false (different types)
+
+console.log(null + 5); // 5 (null is coerced to 0)
+console.log(undefined + 5); // NaN (undefined is coerced to NaN)
+```
+
+## Recursion
+
+[Recursion](https://youtu.be/LteNqj4DFD8) in JavaScript is when a function calls itself to solve smaller parts of a bigger problem. It's like breaking a task into smaller steps, with each step being handled by the same function.
+
+Every recursive function needs:
+
+1. **Base case**: The condition to stop the recursion.
+2. **Recursive case**: The part where the function calls itself with smaller input.
+
+### Example: Finding the factorial of a number
+
+```js
+function factorial(n) {
+  if (n === 1) return 1; // Base case
+  return n * factorial(n - 1); // Recursive case
+}
+
+console.log(factorial(5)); // Output: 120 (5! = 5 * 4 * 3 * 2 * 1 = 120)
+```
+
+**Step-by-Step Breakdown of** `factorial(5)`
+
+- **Initial Call**: `factorial(5)`
+
+  - Condition Check: `5 === 1` is `false`
+  - Recursive Case: `return 5 * factorial(4)`
+  - Call Stack:
+    - `factorial(5)`
+
+- **Recursive Call #1**: `factorial(4)`
+
+  - Condition Check: `4 === 1` is `false`
+  - Recursive Case: `return 4 * factorial(3)`
+  - Call Stack:
+    - `factorial(4)`
+    - `factorial(5)`
+
+- **Recursive Call #2**: `factorial(3)`
+
+  - Condition Check: `3 === 1` is `false`
+  - Recursive Case: `return 3 * factorial(2)`
+  - Call Stack:
+    - `factorial(3)`
+    - `factorial(4)`
+    - `factorial(5)`
+
+- **Recursive Call #3**: `factorial(2)`
+
+  - Condition Check: `2 === 1` is `false`
+  - Recursive Case: `return 2 * factorial(1)`
+  - Call Stack:
+    - `factorial(2)`
+    - `factorial(3)`
+    - `factorial(4)`
+    - `factorial(5)`
+
+- **Recursive Call #4**: `factorial(1)`
+  - Condition Check: `1 === 1` is `true`
+  - Base Case: return `1`
+  - Call Stack:
+    - `factorial(1)`
+    - `factorial(2)`
+    - `factorial(3)`
+    - `factorial(4)`
+    - `factorial(5)`
+
+The recursion stops here because we've reached the base case, and now we will start unwinding the stack.
+
+**Unwinding the Call Stack**
+
+- **Returning from** `factorial(1)`
+
+  - Return Value: `1`
+  - The function call `factorial(1)` returns `1` to `factorial(2)`
+  - Call Stack:
+    - `factorial(2)`
+    - `factorial(3)`
+    - `factorial(4)`
+    - `factorial(5)`
+
+- **Returning from** `factorial(2)`
+
+  - Return Value: `2 * 1 = 2` (i.e. return 2 \* factorial(1) will become return 2 \* 1)
+  - The function call `factorial(2)` returns `2` to `factorial(3)`
+  - Call Stack:
+    - `factorial(3)`
+    - `factorial(4)`
+    - `factorial(5)`
+
+- **Returning from** `factorial(3)`
+
+  - Return Value: `3 * 2 = 6`
+  - The function call `factorial(3)` returns `6` to `factorial(4)`
+  - Call Stack:
+    - `factorial(4)`
+    - `factorial(5)`
+
+- **Returning from** `factorial(4)`
+
+  - Return Value: `4 * 6 = 24`
+  - The function call `factorial(4)` returns `24` to `factorial(5)`
+  - Call Stack:
+    - `factorial(5)`
+
+- **Returning from** `factorial(5)`
+  - Return Value: `5 * 24 = 120`
+  - The function call `factorial(5)` returns `120` to `console.log`
+  - Call Stack:
+    - Empty, as all function calls are resolved
+
+**Final Output**: `120`
+
+### Example: Recursion to get page slugs
+
+```ts
+import fs from 'fs';
+import path from 'path';
+
+export function getMdxFiles(): string[] {
+  const contentDir = path.join(process.cwd(), 'src', 'content');
+
+  const getFilesRecursively = (dir: string): string[] => {
+    const files = fs.readdirSync(dir);
+
+    // The flatMap() method maps all array elements and creates a new flat array.
+    return files.flatMap((file) => {
+      const fullPath = path.join(dir, file);
+      const stat = fs.statSync(fullPath);
+
+      if (stat.isDirectory()) {
+        return getFilesRecursively(fullPath); // Recursive call
+      } else if (file.endsWith('.mdx')) {
+        const relativePath = path.relative(contentDir, fullPath);
+        return relativePath.replace(/\.mdx$/, ''); // Return slug
+      }
+
+      return []; // Ignore non-.mdx files
+    });
+  };
+
+  return getFilesRecursively(contentDir);
+}
+
+// Base Case: The base case is when the function processes a directory with no subdirectories or reaches a file (not a directory).
+// Recursive Case: The recursive case is when the function encounters a directory:
+```
+
+```text
+// Directory Structure:
+src/content/
+├── file1.mdx
+├── file2.txt
+├── subdir/
+│   ├── file3.mdx
+│   ├── subdir/
+│       ├── file4.mdx
+```
+
+**Step-by-Step Execution:**
+
+1. **Initial Call:**
+
+   - Function: `getFilesRecursively("src/content")`.
+   - Reads files in `src/content`: `["file1.mdx", "file2.txt", "subdir"]`.
+   - Processes for each file:
+     - `file1.mdx`: Matches `.mdx`, returns `["file1"]`.
+     - `file2.txt`: Does not match `.mdx`, returns `[]`.
+     - `subdir`: Is a directory, calls `getFilesRecursively("src/content/subdir")`.
+   - Call Stack:
+     - `getFilesRecursively("src/content")`
+
+2. **Recursive Call #1:**
+
+   - Function: `getFilesRecursively("src/content/subdir")`.
+   - Reads files in `src/content/subdir`: `["file3.mdx", "subdir"]`.
+   - Processes for each file:
+     - `file3.mdx`: Matches `.mdx`, returns `["subdir/file3"]`.
+     - `subdir`: Is a directory, calls `getFilesRecursively("src/content/subdir/subdir").
+   - Call Stack:
+     - `getFilesRecursively("src/content/subdir")`
+     - `getFilesRecursively("src/content")`
+
+3. **Recursive Call #2:**
+
+   - Function: `getFilesRecursively("src/content/subdir/subdir")`.
+   - Reads files in `src/content/subdir/subdir`: `["file4.mdx"]`.
+   - Processes for each file:
+     - `file4.mdx`: Matches `.mdx`, returns `["subdir/subdir/file4"]`.
+   - Call Stack:
+     - `getFilesRecursively("src/content/subdir/subdir")`
+     - `getFilesRecursively("src/content/subdir")`
+     - `getFilesRecursively("src/content")`
+
+**Return Value:**
+
+- The recursive call #2 returns `["subdir/subdir/file4"]` to its caller `getFilesRecursively("src/content/subdir")` (Recursive Call #1).
+- Removes `getFilesRecursively("src/content/subdir/subdir")` from call stack
+- Call Stack after return:
+  - `getFilesRecursively("src/content/subdir")`
+  - `getFilesRecursively("src/content")`
+
+4. **Back to Recursive Call #1:**
+
+   - Function: `getFilesRecursively("src/content/subdir")`.
+   - Now combines results:
+     - `["subdir/file3"]` (from file3.mdx).
+     - `["subdir/subdir/file4"]` (from recursive call #2).
+   - Returns `["subdir/file3", "subdir/subdir/file4"]` to its caller `getFilesRecursively("src/content")` (Initial Call).
+   - Removes `getFilesRecursively("src/content/subdir")` from call stack
+   - Call Stack:
+     - `getFilesRecursively("src/content")`
+
+5. **Back to Initial Call:**
+   - Function: `getFilesRecursively("src/content")`
+   - Now combines results:
+     - `["file1"]` (from file1.mdx).
+     - `[]` (from file2.txt).
+     - `["subdir/file3", "subdir/subdir/file4"]` (from Recursive Call #1).
+   - Returns `["file1", "subdir/file3", "subdir/subdir/file4"]`.
+   - Removes `getFilesRecursively("src/content")` from call stack
+   - Call Stack: Empty, as all calls are resolved
+
+**Final Output**: `["file1", "subdir/file3", "subdir/subdir/file4"]`
+
+## Timeouts and Intervals
+
+[Timeouts and Intervals](https://youtu.be/exBgWAIeIeg?t=430&si=4wLqcwkP2Mhw8_Hw)
+
+## Callbacks
+
+[Callbacks](https://youtu.be/exBgWAIeIeg?t=888&si=EGPT8638H4EKTDrN)
+
+- Any function that is passed as an argument to another function is called a **callback
+  function** in JavaScript
+- The function which accepts a function as an argument or returns a function is called a
+  **higher order function**
+- Callbacks allow you to control the execution order of code, particularly in asynchronous scenarios like fetching data or reading files.
+
+```js
+function fetchData(callback) {
+  console.log('Fetching data...');
+  setTimeout(() => {
+    const data = { id: 1, name: 'John' };
+    callback(data);
+  }, 1000);
+}
+
+function displayData(data) {
+  console.log('Data received:', data);
+}
+
+fetchData(displayData);
+// Output:
+// Fetching data...
+// Data received: { id: 1, name: 'John' }
+```
+
+**Callback Hell**
+Callback hell occurs when multiple nested callbacks make the code hard to read and maintain. This often happens when asynchronous tasks depend on each other.
+
+## Promises
+
+- [Promises](https://youtu.be/exBgWAIeIeg?t=1339&si=we7zw0sScDe-wObP) by Codevolution
+- [JavaScript Visualized - Promise Execution](https://youtu.be/Xs1EMmBLpn4) by Lydia Hallie
+- [JavaScript Promises](https://www.w3schools.com/js/js_promise.asp) from W3Schools
+- ECMAScript 2015, also known as ES6, introduced the JavaScript Promise object. Promises are a better version of callbacks.
+- A Promise represents a value that may be available now, or in the future, or never. It helps in chaining asynchronous operations and avoids callback hell.
+- Promises simplify asynchronous code by providing `.then()` and` .catch()` methods for chaining and error handling.
+
+A Promise is in one of these states:
+
+1. Pending : Initial state, neither fulfilled nor rejected.
+2. Fulfilled (Resolved) : The operation was completed successfully.
+3. Rejected: The operation failed.
+
+```js
+function fetchData() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const success = true;
+      if (success) {
+        resolve({ id: 1, name: 'Alice' });
+      } else {
+        reject('Error: Unable to fetch data.');
+      }
+    }, 1000);
+  });
+}
+
+fetchData()
+  .then((data) => {
+    console.log('Data received (Promise):', data); // Data received (Promise): { id: 1, name: 'Alice' }
+  })
+  .catch((error) => {
+    console.error('Error (Promise):', error);
+  });
+```
+
+## Async Await
+
+[Async Await](https://youtu.be/exBgWAIeIeg?list=PLC3y8-rFHvwhuX4qGvFx-wPy_MEi6Jdp7&t=2684)
+
+- `Async/Await` is a syntactic sugar over Promises, making asynchronous code look and behave more like synchronous code.
+- It improves readability and maintains cleaner error handling with `try-catch` blocks.
+- Async functions always **return a promise**. If a value is returned that is not a promise, JavaScript automatically wraps it in a resolved promise.
+- The `await` keyword can only be used inside an async function.
+- The `await` keyword makes the function pause the execution and wait for a resolved promise before it continues.
+
+```js
+// Regular Function: Returns a string directly.
+function getMessage() {
+  return 'Hello';
+}
+console.log(getMessage()); // Output: "Hello"
+
+// Async Function: Automatically wraps the return value in a resolved promise.
+async function getMessageAsync() {
+  return 'Hello';
+}
+console.log(getMessageAsync());
+// Output: Promise { <state>: "fulfilled", <value>: "Hello" }
+
+// Equivalent to the above, but explicitly returning a resolved promise.
+async function getMessageWithPromise() {
+  return Promise.resolve('Hello');
+}
+console.log(getMessageWithPromise());
+// Output: Promise { <state>: "fulfilled", <value>: "Hello" }
+
+// Using `await` to get the resolved value of an async function.
+async function displayMessage() {
+  const message = await getMessageAsync(); // Waits for the promise to resolve.
+  console.log(message);
+}
+displayMessage(); // Output: "Hello"
+```
+
+**Syntax:**
+
+```js
+async function functionName() {
+  try {
+    const result = await someAsyncFunction();
+    console.log(result);
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+}
+```
+
+```js
+async function fetchDataAsync() {
+  try {
+    const data = await fetchData(); // fetchData uses the same implementation
+    console.log('Data received (Async/Await):', data);
+  } catch (error) {
+    console.error('Error (Async/Await):', error);
+  }
+}
+
+fetchDataAsync(); // Data received (Async/Await): { id: 1, name: 'Alice' }
+```
+
+## Event Loop
+
+[Event Loop](https://youtu.be/exBgWAIeIeg?list=PLC3y8-rFHvwhuX4qGvFx-wPy_MEi6Jdp7&t=3325)
+
+[JavaScript Visualized - Event Loop, Web APIs, (Micro)task Queue](https://youtu.be/eiC58R16hb8)
+
+The event loop processes asynchronous code in JavaScript.
+
+```js
+console.log('Start');
+setTimeout(() => console.log('Async Task'), 0);
+console.log('End');
+
+// Output: Start, End, Async Task
+```
+
+## Fetch
+
+- The `fetch()` method starts the process of fetching a resource from a server.
+- The `fetch()` method returns a Promise that resolves to a Response object.
+
+```js
+// Promises and fetch API:
+function fetchUserData() {
+  fetch('https://jsonplaceholder.typicode.com/users/1')
+    .then((response) => response.json())
+    .then((user) => {
+      console.log(user);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+fetchUserData();
+
+// Async/Await and fetch API:
+async function fetchUserData() {
+  try {
+    const response = await fetch(
+      'https://jsonplaceholder.typicode.com/users/1',
+    );
+    const user = await response.json();
+    console.log(user);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+fetchUserData();
+```
+
+## Currying
+
+[Currying](https://youtu.be/R9I85RhI7Cg?list=PLC3y8-rFHvwhuX4qGvFx-wPy_MEi6Jdp7&t=972)
+
+## Iterables and Iterators
+
+[Iterables and Iterators](https://youtu.be/R9I85RhI7Cg?list=PLC3y8-rFHvwhuX4qGvFx-wPy_MEi6Jdp7&t=2828)
+
+## Set and Map
+
+- [Set](https://youtu.be/vfPd6_H7W4Q?si=8zt0xl8Jo6BrM44d) is a collection of unique values.
+- Each **value can only occur once** in a Set.
+- The values can be of any type, primitive values or objects.
+
+- The [Map](https://youtu.be/XOpKmpRh69Y?si=uM2PXrqFAhUjssZZ) object holds key-value pairs and remembers the original insertion order of the keys.
+
+## Understanding 'this' in JavaScript
+
+### In the Global Context
+
+In non-strict mode, `this` refers to the global object (e.g., `window` in browsers).
+In strict mode, `this` is `undefined`. By default, ES6 classes run in strict mode.
+
+```js
+// Non-strict mode
+console.log(this); // Output: Window (in browsers)
+
+// Strict mode
+('use strict');
+console.log(this); // Output: undefined
+```
+
+### Inside an Object Method
+
+When a method is called on an object, `this` refers to the object itself.
+
+```js
+const obj = {
+  name: 'Alice',
+  greet() {
+    console.log(this.name); // Refers to `obj`
+  },
+};
+
+obj.greet(); // Output: Alice
+```
+
+### Standalone Function
+
+In non-strict mode, `this` refers to the global object.
+In strict mode, `this` is `undefined`.
+
+```js
+function sayHello() {
+  console.log(this); // Refers to global object in non-strict mode
+}
+
+sayHello(); // Output: Window (or global object)
+
+('use strict');
+function strictHello() {
+  console.log(this); // undefined in strict mode
+}
+
+strictHello(); // Output: undefined
+```
+
+### Inside a Constructor Function
+
+When a constructor is called using `new`, `this` refers to the newly created object.
+
+```js
+function Person(name) {
+  this.name = name;
+}
+
+const person1 = new Person('Bob');
+console.log(person1.name); // Output: Bob
+```
+
+### Inside a Class
+
+In classes, `this` refers to the instance of the class.
+
+```js
+class Animal {
+  constructor(type) {
+    this.type = type;
+  }
+
+  getType() {
+    return this.type;
+  }
+}
+
+const cat = new Animal('Cat');
+console.log(cat.getType()); // Output: Cat
+```
+
+### Arrow Functions
+
+- Arrow functions do not have their own `this`. Instead, they inherit `this` from their **lexical scope**.
+- **Lexical** scoping defines a function's accessible scope, while **closure** enables a function to access variables even after its scope closes.
+
+```js
+const obj = {
+  name: 'Alice',
+  greet: () => {
+    console.log(this.name); // `this` is inherited from the global scope
+  },
+};
+
+obj.greet(); // Output: undefined (in strict mode) or Window's `name` in non-strict mode
+```
+
+### Inside an Event Listener
+
+In event listeners, `this` refers to the element that triggered the event.
+
+```js
+const button = document.createElement('button');
+button.textContent = 'Click Me';
+document.body.appendChild(button);
+
+button.addEventListener('click', function () {
+  console.log(this); // Refers to the button element
+});
+```
+
+### 'this' with call, apply, and bind
+
+- `call` and `apply` explicitly set `this` when calling a function.
+- `bind` returns a new function with `this` permanently set to the specified object for all future calls, ensuring the same context is used every time the function is invoked.
+
+```js
+function sayName() {
+  console.log(this.name);
+}
+
+const obj = { name: 'John' };
+
+sayName.call(obj); // Output: John (explicitly set `this` to `obj`)
+sayName.apply(obj); // Output: John (works like `call`)
+
+const boundFunction = sayName.bind(obj);
+boundFunction(); // Output: John
+```
+
+### Inside a SetTimeout
+
+- In regular functions, this refers to the global object.
+- With arrow functions, this inherits from the lexical scope.
+
+```js
+setTimeout(function () {
+  console.log(this); // Global object (or `undefined` in strict mode)
+}, 1000);
+
+setTimeout(() => {
+  console.log(this); // Inherits `this` from surrounding context
+}, 1000);
+```
+
+### Key Takeaways
+
+- `this` in global context: Refers to `window` (or global object) in non-strict mode; `undefined` in strict mode.
+- Inside an object method: Refers to the object.
+- Standalone function: Refers to global object (non-strict mode) or `undefined` (strict mode).
+- Arrow functions: Inherit `this` from their lexical scope.
+- Constructor functions and classes: Refers to the new instance.
+- Event listeners: Refers to the element triggering the event.
+- `call`, `apply`, `bind`: Explicitly control the value of `this`.
+- Use arrow functions for predictable `this` behavior.
