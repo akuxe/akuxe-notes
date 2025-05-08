@@ -195,7 +195,7 @@ export const sidebarNav: SidebarNavItem[] = [
             href: '/docs/ux-design/google-ux-design/4-joining-design-sprint',
           },
           {
-            title: 'Integrating Research Into The Design Process',
+            title: 'Integrating Research into the Design Process',
             href: '/docs/ux-design/google-ux-design/5-integrating-research-into-the-design-process',
           },
         ],
