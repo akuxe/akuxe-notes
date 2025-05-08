@@ -25,16 +25,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const slugPath = slug.join('/');
-  const sectionAndTitle = getSectionAndTitleBySlug(slugPath);
   const post = await getDocPageBySlug(slugPath);
 
   if (!post) {
     return notFound();
   }
 
-  const section = sectionAndTitle?.[0];
-  const title = section ? `${post.title} - ${section}` : post.title;
-  const imageUrl = `/api/og?title=${encodeURIComponent(post.title)}&section=${encodeURIComponent(sectionAndTitle?.[0])}`;
+  const title = post.title;
+  const imageUrl = `/api/og?title=${encodeURIComponent(post.title)}`;
 
   return {
     title,
