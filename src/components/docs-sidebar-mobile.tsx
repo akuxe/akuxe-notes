@@ -14,7 +14,7 @@ interface MenuButtonProps {
 
 function MenuButton({ isOpen, setIsOpen }: MenuButtonProps) {
   return (
-    <div className='fixed inset-x-0 top-[65px] z-30 flex h-14 items-center justify-start border-b border-zinc-950/5 bg-zinc-50/60 px-4 backdrop-blur-sm sm:px-6 md:hidden dark:border-zinc-50/10 dark:bg-zinc-950/60'>
+    <div className='fixed inset-x-0 top-16 z-30 flex h-14 items-center justify-start border-b border-zinc-950/5 bg-zinc-50/60 px-4 backdrop-blur-sm sm:px-6 md:hidden dark:border-zinc-50/10 dark:bg-zinc-950/60'>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className='inline-flex items-center justify-start gap-1'
