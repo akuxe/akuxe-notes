@@ -5,7 +5,7 @@ import { GitHub, Logo } from '@/components/icons';
 import MainNavLinks from '@/components/main-nav-link';
 import ThemeToggle from '@/components/theme-toggle';
 import { mainNav } from '@/lib/data';
-import { siteConfig } from '@/lib/site-config';
+import { socialLinks } from '@/lib/site-config';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/16/solid';
 import { useState } from 'react';
@@ -59,7 +59,7 @@ export default function MainNavMobile() {
           <div className='mt-4 px-4 sm:px-6'>
             <div className='flex items-center gap-10 border-t border-zinc-950/5 pt-6 dark:border-zinc-50/10'>
               <LinkButton
-                href={siteConfig.links.github}
+                href={socialLinks.github}
                 target='_blank'
                 rel='noreferrer noopener'
                 aria-label='GitHub repository'

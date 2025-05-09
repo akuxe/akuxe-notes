@@ -1,9 +1,10 @@
+import { metaData } from '@/lib/site-config';
 import { ImageResponse } from 'next/og';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const title = searchParams.get('title') || 'Akuxe Notes';
+    const title = searchParams.get('title') || metaData.title;
 
     return new ImageResponse(
       (

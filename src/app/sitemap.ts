@@ -1,5 +1,5 @@
 import { sidebarNav } from '@/lib/data';
-import { BASE_URL } from '@/lib/site-config';
+import { metaData } from '@/lib/site-config';
 import type { MetadataRoute } from 'next';
 
 interface NavItem {
@@ -31,12 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const allUrls = getAllUrlsFromSidebarNav(sidebarNav);
 
   const docsSitemap = allUrls.map((url) => ({
-    url: `${BASE_URL}/${url}`,
+    url: `${metaData.baseUrl}/${url}`,
     changeFrequency: 'monthly' as const,
   }));
 
   const routes = ['' /* '/about', '/contact' */].map((route) => ({
-    url: `${BASE_URL}${route}/`,
+    url: `${metaData.baseUrl}${route}/`,
     changeFrequency: 'monthly' as const,
   }));
 

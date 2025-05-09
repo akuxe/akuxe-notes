@@ -1,7 +1,7 @@
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import { ThemeProvider } from '@/components/theme-provider';
-import { BASE_URL, siteConfig } from '@/lib/site-config';
+import { metaData } from '@/lib/site-config';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
@@ -19,33 +19,33 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(metaData.baseUrl),
 
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: metaData.title,
+    template: `%s - ${metaData.title}`,
   },
 
-  description: siteConfig.description,
-  authors: siteConfig.authors,
-  creator: siteConfig.creator,
+  description: metaData.description,
+  authors: metaData.authors,
+  creator: metaData.creator,
 
   openGraph: {
-    title: siteConfig.name,
-    description: siteConfig.description,
+    title: metaData.title,
+    description: metaData.description,
+    url: metaData.baseUrl,
+    siteName: metaData.title,
+    images: metaData.ogImage,
     type: 'website',
     locale: 'en_US',
-    url: BASE_URL,
-    siteName: siteConfig.name,
-    images: siteConfig.images,
   },
 
   twitter: {
     card: 'summary_large_image',
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: siteConfig.images,
-    creator: siteConfig.twitterHandle,
+    title: metaData.title,
+    description: metaData.description,
+    images: metaData.ogImage,
+    creator: metaData.twitterHandle,
   },
 };
 

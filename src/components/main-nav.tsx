@@ -1,9 +1,9 @@
 import { LinkButton } from '@/components/button';
-import MainNavLinks from '@/components/main-nav-link';
 import { GitHub, Logo } from '@/components/icons';
+import MainNavLinks from '@/components/main-nav-link';
 import ThemeToggle from '@/components/theme-toggle';
 import { mainNav } from '@/lib/data';
-import { siteConfig } from '@/lib/site-config';
+import { socialLinks } from '@/lib/site-config';
 import Link from 'next/link';
 
 export default function MainNav() {
@@ -30,7 +30,7 @@ export default function MainNav() {
 
         <div className='hidden items-center gap-3 md:flex'>
           <LinkButton
-            href={siteConfig.links.github}
+            href={socialLinks.github}
             target='_blank'
             rel='noreferrer noopener'
             aria-label='GitHub repository'

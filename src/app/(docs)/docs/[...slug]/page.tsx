@@ -1,16 +1,15 @@
-import { notFound } from 'next/navigation';
-import React from 'react';
+import { Breadcrumb } from '@/components/breadcrumb';
 import Pagination from '@/components/pagination';
 import TableOfContents from '@/components/table-of-contents';
+import { metaData } from '@/lib/site-config';
+import { notFound } from 'next/navigation';
+import { Metadata } from 'next/types';
 import {
   generateTableOfContents,
   getDocPageBySlug,
   getDocPageSlugs,
   getSectionAndTitleBySlug,
 } from '../api';
-import { Metadata } from 'next/types';
-import { Breadcrumb } from '@/components/breadcrumb';
-import { siteConfig } from '@/lib/site-config';
 
 export async function generateStaticParams() {
   const slugs = await getDocPageSlugs();
@@ -49,7 +48,7 @@ export async function generateMetadata({
       title,
       description: post.description,
       images: [{ url: imageUrl }],
-      creator: siteConfig.twitterHandle,
+      creator: metaData.twitterHandle,
     },
   };
 }
