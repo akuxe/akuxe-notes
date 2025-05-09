@@ -5,6 +5,7 @@ import { BASE_URL, siteConfig } from '@/lib/site-config';
 import type { Metadata } from 'next';
 import { Fira_Code, Inter } from 'next/font/google';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -68,6 +69,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
