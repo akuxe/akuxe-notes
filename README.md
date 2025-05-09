@@ -1,8 +1,8 @@
 # 🧠 UX/UI & Web Dev Notes
 
-Welcome to my **Personal Notes and Lessons on UI/UX Design and Web Development**, built using **Next.js**.
+**Personal Notes and Lessons on UI/UX Design and Web Development** is a clean, simple, and fast knowledge base built with **Next.js**, **Tailwind CSS**, and **pnpm** for optimal performance.
 
-This is not just another blog — it's a developer and designer friendly knowledge base 📚 with structured topics on UI/UX, Figma, frontend development, code examples, and beautiful design patterns aimed at clarity and learning.
+This isn’t just another blog — it’s my personal knowledge base, crafted for both developers and designers. It features structured content on UI/UX, Figma, frontend development, code examples, and design patterns, all designed for clarity, depth, and practical learning.
 
 ## 🚀 Live Demo
 
@@ -16,7 +16,7 @@ This is not just another blog — it's a developer and designer friendly knowled
 - 🧱 Modular architecture to easily add topics/languages
 - 🖼️ Clean, minimal UI designed for readability
 - 🧠 Curated content on **UX, frontend, and web dev fundamentals**
-- 🔍 SEO-friendly meta tags (title + description)
+- 🔍 SEO-friendly
 
 ## 📦 Tech Stack
 
@@ -33,6 +33,20 @@ Powered by modern frontend tools and thoughtful DX enhancements
 - **tailwind-merge** – Conflict-free Tailwind classes
 - **ESLint + Prettier + Prettier Tailwind plugin** – Linting & formatting
 - **pnpm** – Fast, efficient package manager
+
+## 🛠️ Handcrafted Everything – No Third-Party Libraries
+
+This site is intentionally built **without relying on any third-party UI component libraries** (like ShadCN, MUI, Chakra, etc.).
+All elements — layout, buttons, cards, navigation — are **manually crafted from scratch** using **Tailwind CSS** and **Headless UI** (for the dialog component only).
+
+**Why this approach?**
+
+- ⚡ **Optimized performance** with a lean bundle size
+- 🎯 **Full design control** and zero abstraction overhead
+- 📚 **Better learning value** for myself and other devs
+- 🧼 **No bloat** — just clean, purposeful code
+
+This philosophy ensures the site remains fast, focused, and educational.
 
 ## 📁 Folder Structure
 
