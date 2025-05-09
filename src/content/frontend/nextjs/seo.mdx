@@ -105,3 +105,111 @@ Used to monitor how your site appears in search and which pages are indexed.
 - Use `<Image>` from `next/image`
 - Use fonts from `next/font`
 - Add a `loading.tsx` for route transitions
+
+## Site Configuration for SEO
+
+```ts
+// !CodeFilename: src/lib/site-config.ts
+export const metaData = {
+  baseUrl:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : 'https://nextjs.org',
+
+  title: 'Next.js',
+  description: 'The React Framework for the Web',
+  creator: 'Jiachi Liu',
+  twitterHandle: '@simu_liu',
+  authors: [{ name: 'Seb' }, { name: 'Josh', url: 'https://josh-site.com' }],
+  ogImage: [
+    {
+      url: '/og-image.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Next.js',
+    },
+  ],
+};
+
+export const socialLinks = {
+  twitter: 'https://x.com/',
+  github: 'https://github.com/',
+  instagram: 'https://www.instagram.com/',
+  linkedin: 'https://www.linkedin.com/',
+  email: 'mailto:example@gmail.com',
+};
+```
+
+## Static Metadata Example
+
+```tsx
+// !CodeFilename: app/layout.tsx
+import { metaData } from '@/lib/site-config';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(metaData.baseUrl),
+
+  title: {
+    default: metaData.title,
+    template: `%s - ${metaData.title}`,
+  },
+
+  description: metaData.description,
+  authors: metaData.authors,
+  creator: metaData.creator,
+
+  openGraph: {
+    title: metaData.title,
+    description: metaData.description,
+    url: metaData.baseUrl,
+    siteName: metaData.title,
+    images: metaData.ogImage,
+    type: 'website',
+    locale: 'en_US',
+  },
+
+  twitter: {
+    card: 'summary_large_image',
+    title: metaData.title,
+    description: metaData.description,
+    images: metaData.ogImage,
+    creator: metaData.twitterHandle,
+  },
+};
+```
+
+## Dynamic Metadata Example
+
+```tsx
+// !CodeFilename: app/docs/[slug]/page.tsx
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getDocPageBySlug(slug);
+  const imageUrl = `/api/og?title=${encodeURIComponent(post.title)}`;
+
+  return {
+    title: post.title,
+    description: post.description,
+
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: 'article',
+      url: `/docs/${slug}`,
+      images: [{ url: imageUrl }],
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [{ url: imageUrl }],
+      creator: metaData.twitterHandle,
+    },
+  };
+}
+```
