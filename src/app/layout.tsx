@@ -70,9 +70,9 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
-          <Analytics />
-          <SpeedInsights />
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
