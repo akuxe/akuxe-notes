@@ -5,8 +5,7 @@ export const metaData = {
       : 'https://akuxe-notes.vercel.app',
 
   title: 'Akuxe Notes',
-  description:
-    'Personal notes and lessons on UI/UX design and web development.',
+  description: 'Notes and lessons on UI/UX design and web development.',
   creator: 'Arun',
   twitterHandle: '@arunuxe',
   authors: [{ name: 'Arun', url: 'https://akuxe.vercel.app' }],

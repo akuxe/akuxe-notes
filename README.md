@@ -1,8 +1,8 @@
 # 🧠 UX/UI & Web Dev Notes
 
-**Personal Notes and Lessons on UI/UX Design and Web Development** is a clean, simple, and fast knowledge base built with **Next.js**, **Tailwind CSS**, and **pnpm** for optimal performance.
+**Notes and Lessons on UI/UX Design and Web Development**
 
-This isn’t just another blog — it’s my personal knowledge base, crafted for both developers and designers. It features structured content on UI/UX, Figma, frontend development, code examples, and design patterns, all designed for clarity, depth, and practical learning.
+This is a clean, fast, and lightweight knowledge base built with **Next.js**, **Tailwind CSS**, and **pnpm** — intentionally crafted with **minimal third-party dependencies** to keep the stack lean, maintainable, and performant.
 
 ## 🚀 Live Demo
 
