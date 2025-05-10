@@ -146,7 +146,6 @@
     &::marker {
       color: var(--prose-color);
       font-size: var(--text-sm);
-      line-height: calc(20 / 14);
     }
 
     & ul li::marker {
