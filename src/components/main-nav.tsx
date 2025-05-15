@@ -1,4 +1,4 @@
-import { LinkButton } from '@/components/button';
+import { IconButton } from '@/components/button';
 import { GitHub, Logo } from '@/components/icons';
 import MainNavLinks from '@/components/main-nav-link';
 import ThemeToggle from '@/components/theme-toggle';
@@ -29,14 +29,15 @@ export default function MainNav() {
         </div>
 
         <div className='hidden items-center gap-3 md:flex'>
-          <LinkButton
+          <IconButton
+            as='a'
             href={socialLinks.github}
             target='_blank'
             rel='noreferrer noopener'
             aria-label='GitHub repository'
           >
             <GitHub className='size-4 fill-zinc-600 dark:fill-zinc-400' />
-          </LinkButton>
+          </IconButton>
           <ThemeToggle />
         </div>
       </div>
