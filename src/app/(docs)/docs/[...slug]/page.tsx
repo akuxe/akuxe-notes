@@ -74,7 +74,7 @@ export default async function DocPage({
 
   return (
     <>
-      <div className='grid min-h-dvh grid-cols-1 lg:grid-cols-[minmax(0,1fr)_var(--container-2xs)]'>
+      <div className='grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_var(--container-2xs)]'>
         {/* Main content */}
         <main className='px-4 py-10 sm:px-6'>
           <div className='md:hidden'>
