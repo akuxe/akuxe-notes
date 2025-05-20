@@ -42,7 +42,7 @@ export function DocsSidebarMobile() {
         onClose={() => setIsOpen(false)}
         className='md:hidden'
       >
-        <div className='fixed inset-x-0 top-[120px] bottom-0 bg-zinc-50/90 dark:bg-zinc-950/80' />
+        {/* <div className='fixed inset-x-0 top-[120px] bottom-0 bg-zinc-50/90 dark:bg-zinc-950/80' /> */}
 
         <DialogPanel className='fixed top-[120px] bottom-0 w-full overflow-y-auto bg-zinc-50 p-4 sm:p-6 dark:bg-zinc-950'>
           <DocsSidebar onClick={() => setIsOpen(false)} />
