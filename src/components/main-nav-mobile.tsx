@@ -8,6 +8,7 @@ import { mainNav } from '@/lib/data';
 import { socialLinks } from '@/lib/site-config';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/16/solid';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function MainNavMobile() {
@@ -30,7 +31,9 @@ export default function MainNavMobile() {
       >
         <DialogPanel className='size-full overflow-y-auto'>
           <div className='flex h-16 items-center justify-between px-4 sm:px-6'>
-            <Logo />
+            <Link href='/' aria-label='Home' onClick={() => setIsOpen(false)}>
+              <Logo />
+            </Link>
             <IconButton
               aria-label='Navigation'
               onClick={() => setIsOpen(false)}
