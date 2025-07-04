@@ -17,7 +17,7 @@ export default function Pagination({ slug }: { slug: string }) {
     ]),
   ) as [string, string][];
 
-  const position = flatIndex.findIndex(([path]) => path === `/docs/${slug}`);
+  const position = flatIndex.findIndex(([, path]) => path === `/docs/${slug}`);
   if (position === -1) return null;
 
   const prev = position > 0 ? flatIndex[position - 1] : null;
